@@ -9,6 +9,7 @@ import SettingsModal from './components/SettingsModal';
 import NotificationsModal from './components/NotificationsModal';
 import HelpModal from './components/HelpModal';
 import VoiceAgentModal from './components/VoiceAgentModal';
+import FloatingChatWidget from './components/FloatingChatWidget';
 
 import ComputerVisionModule from './components/ComputerVisionModule';
 import AdaptiveSignalModule from './components/AdaptiveSignalModule';
@@ -31,7 +32,7 @@ import {
 } from './components/FloatingHudWidgets';
 import { MOCK_JUNCTIONS } from './data/mockJunctions';
 import { soundFx } from './utils/soundEffects';
-import { Layers, Filter, ShieldCheck, Mic } from 'lucide-react';
+import { Layers, Filter, ShieldCheck } from 'lucide-react';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -134,17 +135,15 @@ export default function App() {
         setIsEmergencyActive={setIsEmergencyActive}
       />
 
-      {/* Floating Bottom-Right Microphone Button for Quick AI Voice Copilot */}
-      <button
-        onClick={() => {
-          setIsVoiceAgentOpen(true);
-          soundFx.playClick();
-        }}
-        title="Open AI Voice Copilot"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-[#00F2FE] via-emerald-400 to-cyan-500 text-slate-950 flex items-center justify-center shadow-[0_0_30px_rgba(0,242,254,0.5)] cursor-pointer hover:scale-105 transition animate-bounce"
-      >
-        <Mic className="w-6 h-6" />
-      </button>
+      {/* Floating On-Screen Chat Widget (Bottom Right) */}
+      <ErrorBoundary>
+        <FloatingChatWidget
+          selectedJunction={selectedJunction}
+          isEmergencyActive={isEmergencyActive}
+          setIsEmergencyActive={setIsEmergencyActive}
+          onOpenVoiceModal={() => setIsVoiceAgentOpen(true)}
+        />
+      </ErrorBoundary>
 
       {/* 2. Top Navigation Header Bar */}
       <div className="relative z-20">
