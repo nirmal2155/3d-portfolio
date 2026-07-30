@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/* 1. Traffic Core Reference Palette & Typography */
+body {
+  font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace;
+  background-color: #060B13;
+  color: #E2E8F0;
+  overflow-x: hidden;
+}
+
+.font-mono-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Reference Image Styling */
+.core-bg {
+  background-color: #060B13;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.03) 0%, transparent 50%);
+}
+
+.core-panel {
+  background: rgba(10, 18, 30, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+.core-panel-hover:hover {
+  border-color: rgba(0, 242, 254, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Radar Laser Scanning Animation */
+@keyframes radarScan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.radar-scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00F2FE, #10B981, transparent);
+  box-shadow: 0 0 15px #00F2FE;
+  animation: radarScan 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Glowing Text */
+.text-cyan-glow {
+  color: #00F2FE;
+  text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
+}
+
+.text-rose-glow {
+  color: #F43F5E;
+  text-shadow: 0 0 12px rgba(244, 63, 94, 0.6);
+}
+
+.text-emerald-glow {
+  color: #10B981;
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #060B13;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00F2FE;
+}
