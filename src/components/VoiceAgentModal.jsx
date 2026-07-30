@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Volume2, VolumeX, X, Sparkles, Send, Bot, User, ShieldCheck } from 'lucide-react';
+import { Mic, MicOff, Volume2, VolumeX, X, Sparkles, Send, Bot, User } from 'lucide-react';
 import { soundFx } from '../utils/soundEffects';
+import { streamVercelChatbotResponse } from '../services/vercelAiService';
 
 export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isEmergencyActive, setIsEmergencyActive }) {
   if (!isOpen) return null;
 
   const [isListening, setIsListening] = useState(false);
   const [inputText, setInputText] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
   const [chatHistory, setChatHistory] = useState([
     {
       sender: 'bot',
-      text: "Hello, main Traffic Mitra AI hoon. Main aapka Command Control Voice Assistant hoon. Aap mujhse TrafficMitra AI system, 3D WebGL simulator, live camera ML, ANPR plate flagging, driver AR HUD, emergency corridors, ya junction density ke baare me kuch bhi pooch sakte hain.",
+      text: "Hello, main Traffic Mitra AI hoon. Main aapka Command Control Voice Assistant hoon. Powered by Vercel AI SDK. Aap mujhse traffic status, 3D WebGL simulator, live camera ML, ANPR plate flagging, ya emergency corridors ke baare me kuch bhi pooch sakte hain.",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
 
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [speechMuted, setSpeechMuted] = useState(false);
   const recognitionRef = useRef(null);
   const chatEndRef = useRef(null);
@@ -48,96 +49,6 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
     }
   }, []);
 
-  // Comprehensive Knowledge Engine (100% On-Time & Accurate Responses)
-  const generateResponse = (queryText) => {
-    const q = queryText.toLowerCase().trim();
-    if (!q) return "";
-
-    const greeting = "Hello, main Traffic Mitra AI hoon. ";
-
-    // Out-of-Domain Keywords Check (Sports, IPL, Movies, Cooking, Politics, Generic Chat)
-    const isOutofDomain = 
-      q.includes('ipl') || q.includes('cricket') || q.includes('match') || q.includes('movie') ||
-      q.includes('song') || q.includes('biryani') || q.includes('recipe') || q.includes('prime minister') ||
-      q.includes('modi') || q.includes('president') || q.includes('game') || q.includes('snake') ||
-      q.includes('football') || q.includes('bollywood') || q.includes('capital of france') || q.includes('paris');
-
-    if (isOutofDomain) {
-      return `${greeting}Kshama karein, main ek specialized Traffic Intelligence Copilot hoon. Main sirf TrafficMitra AI system, Indian road telemetry, signal optimization, aur command control operations ke baare me sahi uttar de sakta hoon. Out-of-domain savalon ke liye main uttar nahi de sakta.`;
-    }
-
-    // 1. Junction Density & City Specific Queries
-    if (q.includes('silk board') || q.includes('bengaluru') || q.includes('bangalore')) {
-      return `${greeting}Silk Board Junction (Bengaluru) par abhi congestion index 84% heavy hai. Edge device NVIDIA Jetson Nano #42 active hai. Traditional wait time 142s ke muqable TrafficMitra AI ise 64s me clear kar raha hai (55% time saved).`;
-    }
-
-    if (q.includes('dadar') || q.includes('mumbai')) {
-      return `${greeting}Dadar T.T. Circle (Mumbai) par abhi congestion index 91% critical hai. Edge unit NVIDIA Jetson Orin Nano #12 active hai. AI signal timing ne wait time ko 165s se ghata kar 72s kar diya hai.`;
-    }
-
-    if (q.includes('connaught') || q.includes('delhi')) {
-      return `${greeting}Connaught Place Outer Ring (New Delhi) par traffic normal flow me hai (congestion index 42%). Average wait time 42 seconds hai.`;
-    }
-
-    if (q.includes('cyber towers') || q.includes('hyderabad')) {
-      return `${greeting}Cyber Towers Junction (Hyderabad) par congestion index 78% hai, jahan AI adaptive signal wait time ko 130s se 58s par regulate kar raha hai.`;
-    }
-
-    // 2. Emergency Corridor & Siren Queries
-    if (q.includes('ambulance') || q.includes('emergency') || q.includes('rasta') || q.includes('siren') || q.includes('corridor')) {
-      if (!isEmergencyActive) {
-        setIsEmergencyActive(true);
-        soundFx.playSiren();
-        return `${greeting}Emergency Ambulance Corridor instant activate kar diya gaya hai! Siren audio sensors synchronized hain, aur Silk Board trajectory par sabhi opposing signals ko RED karke green wave clear kar di gayi hai.`;
-      } else {
-        return `${greeting}Emergency Ambulance Corridor pehle se hi active hai! Path clear hai aur siren synchronized telemetry running par hai.`;
-      }
-    }
-
-    // 3. ANPR & Plate-Flag Advisory Queries
-    if (q.includes('anpr') || q.includes('challan') || q.includes('plate') || q.includes('fine') || q.includes('violation')) {
-      return `${greeting}Plate-Flag Advisory module automatic number plate recognition se RED_LIGHT_JUMP, HELMETLESS_RIDER, aur WRONG_SIDE_DRIVING detect karta hai. Ye Human-in-the-Loop design hai — jab tak officer confirm na kare, koi fine issue nahi hota aur persistent plate memory write nahi hoti.`;
-    }
-
-    // 4. Driver AR HUD & Cruise Speed Queries
-    if (q.includes('hud') || q.includes('driver') || q.includes('speed') || q.includes('cruise') || q.includes('green wave')) {
-      return `${greeting}Connected vehicles ke Driver AR Head-Up Display par hum 38 km/h ki optimal green-wave cruise speed advise karte hain. Is speed se driver ko agle signal par red light ke bina smooth passage milta hai.`;
-    }
-
-    // 5. Fail-Safe Engine Queries
-    if (q.includes('fail-safe') || q.includes('failsafe') || q.includes('camera') || q.includes('disconnect') || q.includes('breakdown')) {
-      return `${greeting}Fail-Safe Engine camera feed disconnect hone par automatically 45-second fixed safety timer mode me degrade ho jata hai, jisse hardware breakdown hone par bhi junction par gridlock nahi hota.`;
-    }
-
-    // 6. Machine Learning & Computer Vision Queries
-    if (q.includes('webcam') || q.includes('yolo') || q.includes('tensorflow') || q.includes('coco') || q.includes('ml') || q.includes('ai model')) {
-      return `${greeting}Mera Computer Vision module browser ke andar client-side TensorFlow.js MobileNet COCO-SSD ML model aur YOLOv8 scanner chalata hai. Live webcam feed par 98.4% confidence score ke sath vehicles aur pedestrians detect hote hain without sending frames to any cloud server.`;
-    }
-
-    // 7. Tech Stack & Architecture Queries
-    if (q.includes('tech') || q.includes('technology') || q.includes('react') || q.includes('three') || q.includes('vercel') || q.includes('build')) {
-      return `${greeting}Mera pura system React 18, Vite, Three.js 3D WebGL simulator, Tailwind CSS v4, Web Audio API synthesizer, aur Vercel Edge Platform par deploy hai.`;
-    }
-
-    // 8. Vehicle Breakdown Counts & Detection Log
-    if (q.includes('count') || q.includes('kitne') || q.includes('car') || q.includes('bus') || q.includes('auto') || q.includes('cow') || q.includes('cattle')) {
-      return `${greeting}Current live detection stream me 18 cars, 42 bikes, 14 auto-rickshaws, 4 buses, 12 pedestrians, aur 1 stray cow (cattle) identified hain.`;
-    }
-
-    // 9. Weather & Monsoon Waterlogging Queries
-    if (q.includes('weather') || q.includes('mausam') || q.includes('temp') || q.includes('rain') || q.includes('flood')) {
-      return `${greeting}Current weather 24°C hai, humidity 88% hai, aur visibility 800m moderate hai. Monsoon waterlogging risk index 68% estimated hai.`;
-    }
-
-    // 10. Login & Security Permissions
-    if (q.includes('login') || q.includes('permission') || q.includes('police') || q.includes('officer') || q.includes('badge')) {
-      return `${greeting}System access Level 5 Police Command Officer (Badge #4092) aur Level 4 Municipal Engineer ke liye restricted hai, jo 256-bit encrypted telemetry tunnel aur 2FA token (849-201) se protected hai.`;
-    }
-
-    // Default Fallback for General Traffic/App Queries
-    return `${greeting}Main TrafficMitra AI Core v2.4 active hoon. Main aapki kya sahayata kar sakta hoon? Aap live density, ambulance corridors, e-Challan review, ya 3D WebGL simulation ke baare me pooch sakte hain.`;
-  };
-
   // Speak Response Out Loud using SpeechSynthesis
   const speakResponse = (text) => {
     if (speechMuted || typeof window === 'undefined') return;
@@ -147,20 +58,16 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 1.0;
       utterance.pitch = 1.0;
-      
-      utterance.onstart = () => setIsSpeaking(true);
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
-
       window.speechSynthesis.speak(utterance);
     }
   };
 
-  const handleSendMessage = (textToSend) => {
+  const handleSendMessage = async (textToSend) => {
     const text = textToSend || inputText;
-    if (!text.trim()) return;
+    if (!text.trim() || isGenerating) return;
 
     soundFx.playClick();
+    setIsGenerating(true);
 
     const userMsg = {
       sender: 'user',
@@ -168,17 +75,38 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
-    const replyText = generateResponse(text);
-
-    const botMsg = {
+    // Add User Message and Placeholder Bot Message
+    const botMsgIndex = chatHistory.length + 1;
+    const initialBotMsg = {
       sender: 'bot',
-      text: replyText,
+      text: '...',
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
-    setChatHistory(prev => [...prev, userMsg, botMsg]);
+    const newMessages = [...chatHistory, userMsg];
+    setChatHistory([...newMessages, initialBotMsg]);
     setInputText('');
-    speakResponse(replyText);
+
+    // Stream text using Vercel AI SDK pattern
+    const fullText = await streamVercelChatbotResponse({
+      messages: newMessages.map(m => ({ role: m.sender, content: m.text })),
+      selectedJunction,
+      isEmergencyActive,
+      onChunk: (chunkText) => {
+        setChatHistory(prev => {
+          const updated = [...prev];
+          updated[updated.length - 1] = {
+            sender: 'bot',
+            text: chunkText,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          };
+          return updated;
+        });
+      }
+    });
+
+    setIsGenerating(false);
+    speakResponse(fullText);
   };
 
   const startListening = () => {
@@ -191,7 +119,7 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
         setIsListening(false);
       }
     } else {
-      const sample = prompt("TrafficMitra AI Voice Query:", "Silk Board density kitni hai?");
+      const sample = prompt("TrafficMitra Vercel AI SDK Query:", "Silk Board density kitni hai?");
       if (sample) handleSendMessage(sample);
     }
   };
@@ -221,10 +149,10 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
             <div>
               <h2 className="text-base font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
                 <span>TRAFFICMITRA AI VOICE COPILOT</span>
-                <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">INTELLIGENT KNOWLEDGE ENGINE</span>
+                <span className="text-[9px] bg-cyan-500/20 text-[#00F2FE] px-2 py-0.5 rounded border border-[#00F2FE]/30">VERCEL AI SDK ENGINE</span>
               </h2>
               <p className="text-[10px] text-slate-400">
-                EXCLUSIVELY TRAINED FOR TRAFFIC & MUNICIPAL TELEMETRY
+                POWERED BY VERCEL/CHATBOT STREAMING COMPREHENSION
               </p>
             </div>
           </div>
@@ -250,7 +178,7 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
           </div>
         </div>
 
-        {/* Gemini-Style Conversational Chat Stream */}
+        {/* Gemini & Vercel AI SDK Style Streaming Chat Stream */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4 font-sans text-xs bg-slate-950/50">
           {chatHistory.map((msg, idx) => (
             <div
@@ -274,7 +202,7 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
               }`}>
                 <div className="flex justify-between items-center text-[10px] font-mono-tech text-slate-400 mb-1">
                   <span className="font-bold text-cyan-300">
-                    {msg.sender === 'user' ? 'COMMAND OFFICER' : 'TRAFFICMITRA AI'}
+                    {msg.sender === 'user' ? 'COMMAND OFFICER' : 'TRAFFICMITRA VERCEL AI'}
                   </span>
                   <span>{msg.time}</span>
                 </div>
@@ -283,7 +211,7 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
                   {msg.text}
                 </p>
 
-                {msg.sender === 'bot' && (
+                {msg.sender === 'bot' && msg.text !== '...' && (
                   <div className="pt-2 flex justify-end">
                     <button
                       onClick={() => speakResponse(msg.text)}
@@ -302,6 +230,12 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
         {/* Quick Suggestion Chips */}
         <div className="px-6 py-2.5 bg-slate-950 border-t border-white/5 flex flex-wrap gap-2 text-[10px] font-mono-tech">
           <button
+            onClick={() => handleSendMessage("Website kya karta hai?")}
+            className="bg-slate-900 border border-white/10 hover:border-[#00F2FE] px-3 py-1 rounded-full text-slate-300 cursor-pointer"
+          >
+            "Website features?"
+          </button>
+          <button
             onClick={() => handleSendMessage("Silk Board junction density batao")}
             className="bg-slate-900 border border-white/10 hover:border-[#00F2FE] px-3 py-1 rounded-full text-slate-300 cursor-pointer"
           >
@@ -314,16 +248,10 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
             "Clear ambulance corridor 🚑"
           </button>
           <button
-            onClick={() => handleSendMessage("ANPR plate flagging kaise kaam karta hai")}
-            className="bg-slate-900 border border-white/10 hover:border-cyan-400 px-3 py-1 rounded-full text-cyan-300 cursor-pointer"
-          >
-            "ANPR plate flagging?"
-          </button>
-          <button
             onClick={() => handleSendMessage("IPL match kisne jeeta?")}
             className="bg-slate-900 border border-white/10 hover:border-amber-400 px-3 py-1 rounded-full text-amber-300 cursor-pointer"
           >
-            "IPL match score?" (Test Guardrail 🛑)
+            "IPL score?" (Test Guardrail 🛑)
           </button>
         </div>
 
@@ -352,12 +280,13 @@ export default function VoiceAgentModal({ isOpen, onClose, selectedJunction, isE
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="Ask TrafficMitra AI anything about traffic, signals, tech stack, or ambulance corridors..."
+              placeholder="Ask TrafficMitra Vercel AI anything about traffic, website features, tech stack, or ambulance corridors..."
               className="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-slate-200 font-sans focus:outline-none focus:border-[#00F2FE]"
             />
             <button
               type="submit"
-              className="p-2.5 rounded-xl bg-[#00F2FE] text-slate-950 font-bold hover:opacity-90 transition cursor-pointer flex-shrink-0"
+              disabled={isGenerating}
+              className="p-2.5 rounded-xl bg-[#00F2FE] text-slate-950 font-bold hover:opacity-90 transition cursor-pointer flex-shrink-0 disabled:opacity-50"
             >
               <Send className="w-4 h-4" />
             </button>
