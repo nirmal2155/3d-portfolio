@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Settings, Bell, User, MapPin, Globe, LogOut, ShieldCheck, Lock } from 'lucide-react';
+import { Search, Settings, Bell, User, MapPin, Globe, LogOut, ShieldCheck, Lock, Mic } from 'lucide-react';
 
 export default function Header({ 
   selectedJunction, 
@@ -12,6 +12,7 @@ export default function Header({
   onOpenAuth,
   onOpenSettings,
   onOpenNotifications,
+  onOpenVoiceAgent,
   topTab,
   setTopTab,
   searchQuery,
@@ -78,6 +79,16 @@ export default function Header({
       {/* Right Actions & User Badge */}
       <div className="flex items-center gap-2.5">
         
+        {/* AI Voice Copilot Button */}
+        <button
+          onClick={onOpenVoiceAgent}
+          title="AI Voice Copilot Assistant"
+          className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00F2FE]/20 to-emerald-500/20 border border-[#00F2FE]/50 text-[#00F2FE] font-bold text-xs flex items-center gap-1.5 hover:opacity-90 transition cursor-pointer shadow-[0_0_12px_rgba(0,242,254,0.3)] animate-pulse"
+        >
+          <Mic className="w-3.5 h-3.5" />
+          <span>VOICE COPILOT</span>
+        </button>
+
         {/* Settings Button */}
         <button
           onClick={onOpenSettings}
