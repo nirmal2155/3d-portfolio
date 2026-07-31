@@ -97,29 +97,29 @@ export async function streamVercelChatbotResponse({ messages, selectedJunction, 
       fullResponse = `${greeting}Emergency Ambulance Corridor instant activate kar diya gaya hai! Siren audio sensors synchronized hain aur active junction trajectory par opposing signals RED kar diye gaye hain.`;
     }
 
-    // 4. Active Selected Junction Intent ("yahan ka traffic", "is junction par kya hai")
-    else if (q.includes('yahan') || q.includes('active') || q.includes('current junction') || q.includes('is junction')) {
+    // 4. Fail-Safe Engine Intent (EVALUATED BEFORE GENERAL 'ACTIVE' WORD MATCH TO PREVENT INTENT CLASH!)
+    else if (q.includes('fail-safe') || q.includes('failsafe') || q.includes('fail safe') || q.includes('disconnect') || q.includes('kharab') || q.includes('broken')) {
+      fullResponse = `${greeting}Fail-Safe Engine camera feed disconnect hone par automatically 45-second fixed safety timer mode me degrade ho jata hai, jisse hardware breakdown hone par bhi junction par gridlock nahi hota.`;
+    }
+
+    // 5. Active Selected Junction Intent ("yahan ka traffic", "is junction par kya hai")
+    else if (q.includes('yahan') || q.includes('is junction') || q.includes('current junction') || q.includes('active screen')) {
       fullResponse = `${greeting}Abhi active screen par ${selectedJunction?.name || 'Silk Board Junction'} selected hai. Yahan congestion index ${selectedJunction?.congestionIndex || 84}% hai aur edge device ${selectedJunction?.edgeDevice || 'NVIDIA Jetson'} active hai.`;
     }
 
-    // 5. ANPR & Plate Flagging Intent
+    // 6. ANPR & Plate Flagging Intent
     else if (q.includes('anpr') || q.includes('challan') || q.includes('plate') || q.includes('fine') || q.includes('violation') || q.includes('number')) {
       fullResponse = `${greeting}Plate-Flag Advisory module automatic number plate recognition se red-light jump aur helmetless riding detect karke police dashboard par flag karta hai (Human-in-the-Loop review). Bina human officer verification ke koi fine issue nahi hota.`;
     }
 
-    // 6. Camera & Computer Vision Intent
+    // 7. Camera & Computer Vision Intent
     else if (q.includes('camera') || q.includes('webcam') || q.includes('yolo') || q.includes('tensorflow') || q.includes('coco') || q.includes('ml') || q.includes('vision') || q.includes('scan')) {
       fullResponse = `${greeting}Mera Computer Vision module browser ke andar client-side TensorFlow.js MobileNet COCO-SSD ML model chalata hai. Live device webcam feed par 98.4% confidence score ke sath vehicles aur pedestrians detect hote hain.`;
     }
 
-    // 7. Driver AR HUD & Cruise Speed Intent
+    // 8. Driver AR HUD & Cruise Speed Intent
     else if (q.includes('hud') || q.includes('driver') || q.includes('speed') || q.includes('cruise') || q.includes('gadi')) {
       fullResponse = `${greeting}Connected vehicles ke Driver AR Head-Up Display par hum 38 km/h ki optimal green-wave cruise speed recommend karte hain, jisse vehicle bina rukey green signal cross kar leta hai.`;
-    }
-
-    // 8. Fail-Safe Engine Intent
-    else if (q.includes('fail-safe') || q.includes('failsafe') || q.includes('disconnect') || q.includes('kharab') || q.includes('broken')) {
-      fullResponse = `${greeting}Fail-Safe Engine camera feed disconnect hone par automatically 45-second fixed safety timer mode me degrade ho jata hai, jisse hardware breakdown hone par bhi junction par gridlock nahi hota.`;
     }
 
     // 9. Website Features & Overview Intent
