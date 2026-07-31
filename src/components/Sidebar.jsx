@@ -16,13 +16,18 @@ import {
   Waves,
   Video,
   Volume2,
-  Wifi
+  Wifi,
+  Globe,
+  Heart
 } from 'lucide-react';
 
 export default function Sidebar({ currentTab, setCurrentTab, user, onLogout, onOpenAuth, onOpenHelp }) {
   const menuItems = [
     { id: 'cv', label: 'SYSTEM_HEALTH', icon: Activity, badge: null },
     { id: 'adaptive', label: 'DEPLOYMENT', icon: Cpu, badge: null },
+    { id: 'quantum', label: 'QUANTUM_AI', icon: Cpu, badge: 'WORLD_FIRST' },
+    { id: 'sar', label: 'ISRO_SAR', icon: Globe, badge: 'RADAR' },
+    { id: 'bio', label: 'BIO_RADAR', icon: Heart, badge: '60GHZ' },
     { id: 'greenwave', label: 'GREEN_WAVE', icon: Waves, badge: 'CASCADE' },
     { id: 'dronepatrol', label: 'DRONE_PATROL', icon: Video, badge: 'AIRBORNE' },
     { id: 'acousticsiren', label: 'ACOUSTIC_DSP', icon: Volume2, badge: 'SIREN' },
@@ -89,11 +94,10 @@ export default function Sidebar({ currentTab, setCurrentTab, user, onLogout, onO
 
                 {item.badge && (
                   <span className={`text-[8px] px-1.5 py-0.5 rounded font-bold ${
-                    item.badge === 'CASCADE' ? 'bg-[#00F2FE]/20 text-[#00F2FE] border border-[#00F2FE]/40' :
-                    item.badge === 'AIRBORNE' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
-                    item.badge === 'SIREN' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' :
-                    item.badge === 'URLLC' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40' :
-                    item.badge === '03' ? 'bg-rose-500 text-white' : 'bg-slate-800 text-slate-300'
+                    item.badge === 'WORLD_FIRST' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 animate-pulse' :
+                    item.badge === 'RADAR' ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40' :
+                    item.badge === '60GHZ' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
+                    item.badge === 'CASCADE' ? 'bg-[#00F2FE]/20 text-[#00F2FE] border border-[#00F2FE]/40' : 'bg-slate-800 text-slate-300'
                   }`}>
                     {item.badge}
                   </span>

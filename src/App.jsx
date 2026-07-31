@@ -30,6 +30,10 @@ import DronePatrolModule from './components/DronePatrolModule';
 import AcousticSirenModule from './components/AcousticSirenModule';
 import CV2XBroadcastModule from './components/CV2XBroadcastModule';
 
+import QuantumTrafficSimulatorModule from './components/QuantumTrafficSimulatorModule';
+import SatelliteSarModule from './components/SatelliteSarModule';
+import BioDriverStressModule from './components/BioDriverStressModule';
+
 import CityGridModule from './components/CityGridModule';
 import StrategyModule from './components/StrategyModule';
 import AnalyticsModule from './components/AnalyticsModule';
@@ -355,6 +359,18 @@ export default function App() {
                       lang={lang}
                       isEmergencyActive={isEmergencyActive}
                     />
+                  )}
+
+                  {currentTab === 'quantum' && (
+                    <QuantumTrafficSimulatorModule selectedJunction={selectedJunction} />
+                  )}
+
+                  {currentTab === 'sar' && (
+                    <SatelliteSarModule selectedJunction={selectedJunction} />
+                  )}
+
+                  {currentTab === 'bio' && (
+                    <BioDriverStressModule selectedJunction={selectedJunction} />
                   )}
 
                   {currentTab === 'greenwave' && (
