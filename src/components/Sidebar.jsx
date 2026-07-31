@@ -12,13 +12,21 @@ import {
   Sparkles,
   Lock,
   Camera,
-  Navigation
+  Navigation,
+  Waves,
+  Video,
+  Volume2,
+  Wifi
 } from 'lucide-react';
 
 export default function Sidebar({ currentTab, setCurrentTab, user, onLogout, onOpenAuth, onOpenHelp }) {
   const menuItems = [
     { id: 'cv', label: 'SYSTEM_HEALTH', icon: Activity, badge: null },
     { id: 'adaptive', label: 'DEPLOYMENT', icon: Cpu, badge: null },
+    { id: 'greenwave', label: 'GREEN_WAVE', icon: Waves, badge: 'CASCADE' },
+    { id: 'dronepatrol', label: 'DRONE_PATROL', icon: Video, badge: 'AIRBORNE' },
+    { id: 'acousticsiren', label: 'ACOUSTIC_DSP', icon: Volume2, badge: 'SIREN' },
+    { id: 'cv2x', label: 'C-V2X_5G', icon: Wifi, badge: 'URLLC' },
     { id: 'echallan', label: 'ANPR_CHALLAN', icon: Camera, badge: 'RTO' },
     { id: 'driverhud', label: 'DRIVER_HUD', icon: Navigation, badge: 'AR' },
     { id: 'chaos', label: 'INCIDENTS', icon: AlertTriangle, badge: '03' },
@@ -68,20 +76,24 @@ export default function Sidebar({ currentTab, setCurrentTab, user, onLogout, onO
               <button
                 key={item.id}
                 onClick={() => setCurrentTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg font-bold tracking-wider transition cursor-pointer ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg font-bold tracking-wider transition cursor-pointer text-[11px] ${
                   isActive
                     ? 'bg-[#00F2FE]/15 border-l-4 border-[#00F2FE] text-[#00F2FE]'
                     : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900/50'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#00F2FE]' : 'text-slate-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#00F2FE]' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
                 </div>
 
                 {item.badge && (
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold ${
-                    item.badge === '03' ? 'bg-rose-500 text-white' : item.badge === 'RTO' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-cyan-500/20 text-[#00F2FE] border border-[#00F2FE]/40'
+                  <span className={`text-[8px] px-1.5 py-0.5 rounded font-bold ${
+                    item.badge === 'CASCADE' ? 'bg-[#00F2FE]/20 text-[#00F2FE] border border-[#00F2FE]/40' :
+                    item.badge === 'AIRBORNE' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
+                    item.badge === 'SIREN' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' :
+                    item.badge === 'URLLC' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40' :
+                    item.badge === '03' ? 'bg-rose-500 text-white' : 'bg-slate-800 text-slate-300'
                   }`}>
                     {item.badge}
                   </span>

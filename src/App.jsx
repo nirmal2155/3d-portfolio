@@ -23,6 +23,11 @@ import PoliceDashboardModule from './components/PoliceDashboardModule';
 import TrustFailSafeModule from './components/TrustFailSafeModule';
 import PitchDeckModule from './components/PitchDeckModule';
 
+import GreenWaveCoordinatorModule from './components/GreenWaveCoordinatorModule';
+import DronePatrolModule from './components/DronePatrolModule';
+import AcousticSirenModule from './components/AcousticSirenModule';
+import CV2XBroadcastModule from './components/CV2XBroadcastModule';
+
 import CityGridModule from './components/CityGridModule';
 import StrategyModule from './components/StrategyModule';
 import AnalyticsModule from './components/AnalyticsModule';
@@ -327,6 +332,22 @@ export default function App() {
                       lang={lang}
                       isEmergencyActive={isEmergencyActive}
                     />
+                  )}
+
+                  {currentTab === 'greenwave' && (
+                    <GreenWaveCoordinatorModule selectedJunction={selectedJunction} />
+                  )}
+
+                  {currentTab === 'dronepatrol' && (
+                    <DronePatrolModule selectedJunction={selectedJunction} />
+                  )}
+
+                  {currentTab === 'acousticsiren' && (
+                    <AcousticSirenModule selectedJunction={selectedJunction} />
+                  )}
+
+                  {currentTab === 'cv2x' && (
+                    <CV2XBroadcastModule selectedJunction={selectedJunction} />
                   )}
 
                   {currentTab === 'echallan' && (
