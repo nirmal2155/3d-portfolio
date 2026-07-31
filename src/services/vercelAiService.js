@@ -1,6 +1,6 @@
 /**
- * TrafficMitra AI — Vercel AI SDK Chatbot Integration Service
- * Word-Tracking NLU & Multi-City Indian Traffic Telemetry Engine
+ * TrafficMitra AI — Ultra-Smart Vercel AI SDK Chatbot Service
+ * Features: Fuzzy NLU Intent Resolver, All-India Cities Telemetry, Live Context Awareness
  */
 
 export const INDIAN_CITIES_TELEMETRY = {
@@ -31,12 +31,44 @@ export const INDIAN_CITIES_TELEMETRY = {
 
 export async function streamVercelChatbotResponse({ messages, selectedJunction, isEmergencyActive, onChunk }) {
   const lastMessage = messages[messages.length - 1]?.content || '';
-  const q = lastMessage.toLowerCase().trim();
+  const rawQ = lastMessage.toLowerCase().trim();
+  
+  // Normalize query text for typo resilience
+  const q = rawQ
+    .replace(/trffic|trafic|trefic/g, 'traffic')
+    .replace(/amulance|ambulanse|ambulens/g, 'ambulance')
+    .replace(/siganl|singal/g, 'signal')
+    .replace(/chelan|chalan/g, 'challan')
+    .replace(/camra|camer/g, 'camera')
+    .replace(/wether|mausam/g, 'weather');
+
   const greeting = "Hello, main Traffic Mitra AI hoon. ";
+
+  // Optional Live Cloud API Execution if key exists
+  const apiKey = import.meta.env?.VITE_GEMINI_API_KEY || import.meta.env?.VITE_OPENAI_API_KEY;
+  if (apiKey) {
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: `You are TrafficMitra AI Command Copilot. System context: ${selectedJunction?.name || 'Active Junction'}, Congestion: ${selectedJunction?.congestionIndex || 80}%. Always start with 'Hello, main Traffic Mitra AI hoon.' in Hindi/Hinglish.\nUser Question: ${lastMessage}` }] }]
+        })
+      });
+      const data = await response.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (text) {
+        onChunk(text);
+        return text;
+      }
+    } catch (e) {
+      console.warn("API fallback to high-speed client NLU engine:", e);
+    }
+  }
 
   let fullResponse = "";
 
-  // 1. Out-of-Domain Refusal
+  // 1. Out-of-Domain Detection
   const isOutofDomain = 
     q.includes('ipl') || q.includes('cricket') || q.includes('match') || q.includes('movie') ||
     q.includes('song') || q.includes('biryani') || q.includes('recipe') || q.includes('prime minister') ||
@@ -45,8 +77,8 @@ export async function streamVercelChatbotResponse({ messages, selectedJunction, 
   if (isOutofDomain) {
     fullResponse = `${greeting}Kshama karein, main ek specialized Traffic Intelligence Copilot hoon. Main sirf TrafficMitra AI, road telemetry, signal optimization, aur command control operations ke baare me uttar de sakta hoon.`;
   } 
-  
-  // 2. City Telemetry Match (Only when specific city/junction is named!)
+
+  // 2. City Telemetry Intent (Direct City Query Match)
   else {
     let matchedCityData = null;
     for (const [cityKey, cityData] of Object.entries(INDIAN_CITIES_TELEMETRY)) {
@@ -60,54 +92,59 @@ export async function streamVercelChatbotResponse({ messages, selectedJunction, 
       fullResponse = `${greeting}${matchedCityData.city} (${matchedCityData.name}) par abhi congestion index ${matchedCityData.index}% (${matchedCityData.status}) hai. Edge device ${matchedCityData.edge} active hai. Traditional wait time ${matchedCityData.waitOrig}s ke muqable TrafficMitra AI ise ${matchedCityData.waitAI}s me regulate kar raha hai (${Math.round((1 - matchedCityData.waitAI / matchedCityData.waitOrig) * 100)}% time saved).`;
     } 
 
-    // 3. Emergency Ambulance Corridor Match
+    // 3. Ambulance Emergency Corridor Intent
     else if (q.includes('ambulance') || q.includes('emergency') || q.includes('rasta') || q.includes('corridor') || q.includes('hospital') || q.includes('siren')) {
       fullResponse = `${greeting}Emergency Ambulance Corridor instant activate kar diya gaya hai! Siren audio sensors synchronized hain aur active junction trajectory par opposing signals RED kar diye gaye hain.`;
     }
 
-    // 4. ANPR & Plate Flagging Match
+    // 4. Active Selected Junction Intent ("yahan ka traffic", "is junction par kya hai")
+    else if (q.includes('yahan') || q.includes('active') || q.includes('current junction') || q.includes('is junction')) {
+      fullResponse = `${greeting}Abhi active screen par ${selectedJunction?.name || 'Silk Board Junction'} selected hai. Yahan congestion index ${selectedJunction?.congestionIndex || 84}% hai aur edge device ${selectedJunction?.edgeDevice || 'NVIDIA Jetson'} active hai.`;
+    }
+
+    // 5. ANPR & Plate Flagging Intent
     else if (q.includes('anpr') || q.includes('challan') || q.includes('plate') || q.includes('fine') || q.includes('violation') || q.includes('number')) {
       fullResponse = `${greeting}Plate-Flag Advisory module automatic number plate recognition se red-light jump aur helmetless riding detect karke police dashboard par flag karta hai (Human-in-the-Loop review). Bina human officer verification ke koi fine issue nahi hota.`;
     }
 
-    // 5. Camera & ML Model Match
+    // 6. Camera & Computer Vision Intent
     else if (q.includes('camera') || q.includes('webcam') || q.includes('yolo') || q.includes('tensorflow') || q.includes('coco') || q.includes('ml') || q.includes('vision') || q.includes('scan')) {
       fullResponse = `${greeting}Mera Computer Vision module browser ke andar client-side TensorFlow.js MobileNet COCO-SSD ML model chalata hai. Live device webcam feed par 98.4% confidence score ke sath vehicles aur pedestrians detect hote hain.`;
     }
 
-    // 6. Driver AR HUD & Cruise Speed Match
+    // 7. Driver AR HUD & Cruise Speed Intent
     else if (q.includes('hud') || q.includes('driver') || q.includes('speed') || q.includes('cruise') || q.includes('gadi')) {
       fullResponse = `${greeting}Connected vehicles ke Driver AR Head-Up Display par hum 38 km/h ki optimal green-wave cruise speed recommend karte hain, jisse vehicle bina rukey green signal cross kar leta hai.`;
     }
 
-    // 7. Fail-Safe Engine Match
+    // 8. Fail-Safe Engine Intent
     else if (q.includes('fail-safe') || q.includes('failsafe') || q.includes('disconnect') || q.includes('kharab') || q.includes('broken')) {
       fullResponse = `${greeting}Fail-Safe Engine camera feed disconnect hone par automatically 45-second fixed safety timer mode me degrade ho jata hai, jisse hardware breakdown hone par bhi junction par gridlock nahi hota.`;
     }
 
-    // 8. Website Features & Project Overview Match
-    else if (q.includes('website') || q.includes('project') || q.includes('app') || q.includes('kya karta hai') || q.includes('feature') || q.includes('purpose')) {
+    // 9. Website Features & Overview Intent
+    else if (q.includes('website') || q.includes('project') || q.includes('app') || q.includes('kya karta hai') || q.includes('feature') || q.includes('purpose') || q.includes('batao')) {
       fullResponse = `${greeting}TrafficMitra AI ek complete intelligent traffic control room hai jisme 3D WebGL simulator, live device webcam ML detector, ANPR plate flagging, driver AR HUD, aur emergency ambulance green wave feature shamil hain.`;
     }
 
-    // 9. Tech Stack & Architecture Match
+    // 10. Tech Stack Intent
     else if (q.includes('tech') || q.includes('code') || q.includes('framework') || q.includes('react') || q.includes('three') || q.includes('vercel') || q.includes('build')) {
       fullResponse = `${greeting}Mera system React 18, Vite, Three.js 3D WebGL, Tailwind CSS v4, Vercel AI SDK integration, aur Vercel Edge Platform par built hai.`;
     }
 
-    // 10. Weather & Monsoon Match
-    else if (q.includes('weather') || q.includes('mausam') || q.includes('temp') || q.includes('rain') || q.includes('flood')) {
+    // 11. Weather Intent
+    else if (q.includes('weather') || q.includes('temp') || q.includes('rain') || q.includes('flood')) {
       fullResponse = `${greeting}Current weather 24°C hai, humidity 88% hai, aur visibility 800m moderate hai. Monsoon waterlogging risk index 68% estimated hai.`;
     }
 
-    // 11. General Greetings Match
+    // 12. General Greeting Intent
     else if (q.includes('hello') || q.includes('hi') || q.includes('namaste') || q.includes('kon ho') || q.includes('who are you')) {
       fullResponse = `${greeting}Main Bharat ke chaos-aware mixed traffic ko dynamic AI se regulate karne wala Command Control System hoon. Aap mujhse kisi bhi city ya system feature ke baare me pooch sakte hain.`;
     }
 
-    // 12. Smart Universal Neutral Fallback (NO SILK BOARD SPECIFICS EVER FOR UNRELATED QUESTIONS!)
+    // 13. Intelligent Context-Aware Neutral Response
     else {
-      fullResponse = `${greeting}Aapka prashna "${lastMessage}" ke sambandh me hai. Main TrafficMitra AI Command Copilot hoon. Aap mujhse kisi bhi Indian city (e.g. Pune, Mumbai, Ahmedabad, Delhi), live camera ML, ANPR challan review, ya ambulance emergency corridor ke baare me exact question pooch sakte hain.`;
+      fullResponse = `${greeting}Aapka prashna "${lastMessage}" TrafficMitra AI telemetry ke sambandh me hai. Aap mujhse kisi bhi Indian city (e.g. Pune, Mumbai, Ahmedabad, Delhi), live camera ML, ANPR challan review, ya ambulance emergency corridor ke baare me pooch sakte hain.`;
     }
   }
 
@@ -117,7 +154,7 @@ export async function streamVercelChatbotResponse({ messages, selectedJunction, 
   for (let i = 0; i < words.length; i++) {
     currentText += (i === 0 ? '' : ' ') + words[i];
     onChunk(currentText);
-    await new Promise(res => setTimeout(res, 20));
+    await new Promise(res => setTimeout(res, 18));
   }
 
   return fullResponse;

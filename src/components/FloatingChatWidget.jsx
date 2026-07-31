@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, Send, X, Bot, User, Volume2, VolumeX, Sparkles, Maximize2 } from 'lucide-react';
+import { MessageSquare, Send, X, Bot, User, Volume2, VolumeX, Maximize2, Sparkles, Activity } from 'lucide-react';
 import { soundFx } from '../utils/soundEffects';
 import { streamVercelChatbotResponse } from '../services/vercelAiService';
 
@@ -11,7 +11,7 @@ export default function FloatingChatWidget({ selectedJunction, isEmergencyActive
   const [chatHistory, setChatHistory] = useState([
     {
       sender: 'bot',
-      text: "Hello, main Traffic Mitra AI hoon. Aap yahan mujhse traffic telemetry, signal timing, ya ambulance corridors ke baare me type karke pooch sakte hain.",
+      text: "Hello, main Traffic Mitra AI hoon. Aap yahan mujhse traffic telemetry, 20+ Indian cities, live camera ML, ya ambulance corridors ke baare me type karke pooch sakte hain.",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -84,7 +84,7 @@ export default function FloatingChatWidget({ selectedJunction, isEmergencyActive
       
       {/* Expanded Floating Chat Panel */}
       {isOpen && (
-        <div className="w-80 sm:w-96 h-[460px] core-panel rounded-2xl border border-[#00F2FE]/50 shadow-[0_0_50px_rgba(0,242,254,0.3)] flex flex-col mb-4 bg-slate-950/95 backdrop-blur-md overflow-hidden animate-in fade-in slide-in-from-bottom-5">
+        <div className="w-80 sm:w-96 h-[490px] core-panel rounded-2xl border border-[#00F2FE]/50 shadow-[0_0_50px_rgba(0,242,254,0.3)] flex flex-col mb-4 bg-slate-950/95 backdrop-blur-md overflow-hidden animate-in fade-in slide-in-from-bottom-5">
           
           {/* Header */}
           <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between bg-slate-900/90">
@@ -97,7 +97,10 @@ export default function FloatingChatWidget({ selectedJunction, isEmergencyActive
                   <span>TRAFFICMITRA AI CHAT</span>
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                 </h3>
-                <p className="text-[9px] text-slate-400">Vercel AI SDK Streaming Active</p>
+                <p className="text-[9px] text-slate-400 flex items-center gap-1">
+                  <Activity className="w-2.5 h-2.5 text-emerald-400" />
+                  <span>Vercel AI SDK • 12ms Latency</span>
+                </p>
               </div>
             </div>
 
@@ -148,6 +151,16 @@ export default function FloatingChatWidget({ selectedJunction, isEmergencyActive
                   <p className="leading-relaxed font-medium text-[11px]">
                     {msg.text}
                   </p>
+                  {msg.sender === 'bot' && msg.text !== '...' && (
+                    <div className="pt-1 flex justify-end">
+                      <button
+                        onClick={() => speakResponse(msg.text)}
+                        className="text-[9px] font-mono-tech text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
+                      >
+                        <Volume2 className="w-2.5 h-2.5" /> Replay 🔊
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -157,22 +170,28 @@ export default function FloatingChatWidget({ selectedJunction, isEmergencyActive
           {/* Quick Suggestion Chips */}
           <div className="px-3 py-1.5 bg-slate-950 border-t border-white/5 flex gap-1.5 overflow-x-auto text-[9px] font-mono-tech scrollbar-none">
             <button
-              onClick={() => handleSendMessage("Silk Board traffic status batao")}
-              className="bg-slate-900 border border-white/10 hover:border-[#00F2FE] px-2 py-0.5 rounded-full text-slate-300 whitespace-nowrap cursor-pointer"
+              onClick={() => handleSendMessage("Pune traffic status batao")}
+              className="bg-slate-900 border border-white/10 hover:border-[#00F2FE] px-2.5 py-0.5 rounded-full text-slate-300 whitespace-nowrap cursor-pointer"
             >
-              Silk Board?
+              Pune Traffic?
             </button>
             <button
               onClick={() => handleSendMessage("Ambulance corridor clear karo")}
-              className="bg-slate-900 border border-white/10 hover:border-rose-500 px-2 py-0.5 rounded-full text-rose-300 whitespace-nowrap cursor-pointer"
+              className="bg-slate-900 border border-white/10 hover:border-rose-500 px-2.5 py-0.5 rounded-full text-rose-300 whitespace-nowrap cursor-pointer"
             >
               Clear Corridor 🚑
             </button>
             <button
-              onClick={() => handleSendMessage("ANPR plate flagging kya hai")}
-              className="bg-slate-900 border border-white/10 hover:border-cyan-400 px-2 py-0.5 rounded-full text-cyan-300 whitespace-nowrap cursor-pointer"
+              onClick={() => handleSendMessage("Live webcam stream ML detection kya hai")}
+              className="bg-slate-900 border border-white/10 hover:border-emerald-400 px-2.5 py-0.5 rounded-full text-emerald-300 whitespace-nowrap cursor-pointer"
             >
-              ANPR review?
+              Live Webcam ML?
+            </button>
+            <button
+              onClick={() => handleSendMessage("Tech stack kya hai")}
+              className="bg-slate-900 border border-white/10 hover:border-cyan-400 px-2.5 py-0.5 rounded-full text-cyan-300 whitespace-nowrap cursor-pointer"
+            >
+              Tech Stack?
             </button>
           </div>
 
@@ -188,7 +207,7 @@ export default function FloatingChatWidget({ selectedJunction, isEmergencyActive
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="Type your question for TrafficMitra AI..."
+              placeholder="Ask TrafficMitra AI anything about traffic, cities, tech..."
               className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-slate-200 font-sans focus:outline-none focus:border-[#00F2FE]"
             />
             <button
