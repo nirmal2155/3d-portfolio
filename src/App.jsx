@@ -10,6 +10,7 @@ import SettingsModal from './components/SettingsModal';
 import NotificationsModal from './components/NotificationsModal';
 import HelpModal from './components/HelpModal';
 import VoiceAgentModal from './components/VoiceAgentModal';
+import GovernmentReportModal from './components/GovernmentReportModal';
 import FloatingChatWidget from './components/FloatingChatWidget';
 
 import ComputerVisionModule from './components/ComputerVisionModule';
@@ -45,6 +46,7 @@ export default function App() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isVoiceAgentOpen, setIsVoiceAgentOpen] = useState(false);
+  const [isGovtReportOpen, setIsGovtReportOpen] = useState(false);
 
   // Navigation state
   const [currentTab, setCurrentTab] = useState('cv'); // Sidebar tab
@@ -101,7 +103,7 @@ export default function App() {
   return (
     <div className="min-h-screen relative bg-[#060B13] text-slate-200 flex flex-col font-mono-tech select-none overflow-x-hidden">
       
-      {/* 0. High-Tech Animated Intro Logo Loader (Plays on App Start or Replay) */}
+      {/* 0. High-Tech Animated Intro Logo Loader */}
       {showIntro && (
         <IntroLoader onComplete={() => setShowIntro(false)} />
       )}
@@ -140,6 +142,12 @@ export default function App() {
         selectedJunction={selectedJunction}
         isEmergencyActive={isEmergencyActive}
         setIsEmergencyActive={setIsEmergencyActive}
+      />
+      <GovernmentReportModal
+        isOpen={isGovtReportOpen}
+        onClose={() => setIsGovtReportOpen(false)}
+        selectedJunction={selectedJunction}
+        user={user}
       />
 
       {/* Floating On-Screen Chat Widget (Bottom Right) */}
@@ -183,6 +191,10 @@ export default function App() {
             }}
             onOpenVoiceAgent={() => {
               setIsVoiceAgentOpen(true);
+              soundFx.playClick();
+            }}
+            onOpenGovtReport={() => {
+              setIsGovtReportOpen(true);
               soundFx.playClick();
             }}
             topTab={topTab}

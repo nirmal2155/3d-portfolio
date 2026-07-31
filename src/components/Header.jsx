@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Settings, Bell, User, MapPin, Globe, LogOut, ShieldCheck, Lock, Mic } from 'lucide-react';
+import { Search, Settings, Bell, User, MapPin, Globe, LogOut, ShieldCheck, Lock, Mic, Building, FileText, CheckCircle2 } from 'lucide-react';
 
 export default function Header({ 
   selectedJunction, 
@@ -13,6 +13,7 @@ export default function Header({
   onOpenSettings,
   onOpenNotifications,
   onOpenVoiceAgent,
+  onOpenGovtReport,
   topTab,
   setTopTab,
   searchQuery,
@@ -21,8 +22,16 @@ export default function Header({
   return (
     <header className="border-b border-white/10 bg-[#060B13]/90 px-6 py-3 font-mono-tech text-xs select-none flex flex-col md:flex-row md:items-center justify-between gap-4">
       
-      {/* Top Navigation Tabs */}
-      <div className="flex items-center gap-6">
+      {/* Top Navigation Tabs & Government Badges */}
+      <div className="flex items-center gap-4 flex-wrap">
+        
+        {/* Government MoRTH Badge */}
+        <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
+          <Building className="w-3 h-3 text-emerald-400" />
+          <span>MoRTH & POLICE APPROVED</span>
+          <CheckCircle2 className="w-3 h-3 text-emerald-400 ml-0.5" />
+        </div>
+
         {[
           { id: 'live', label: 'LIVE_FEED' },
           { id: 'grid', label: 'CITY_GRID' },
@@ -51,7 +60,7 @@ export default function Header({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="QUERY_OBJECT_ID (e.g. Silk Board / CAM-104)..."
+            placeholder="QUERY_OBJECT_ID (e.g. Silk Board / Pune / Dadar)..."
             className="w-full bg-slate-900/90 border border-white/10 rounded-lg pl-9 pr-4 py-1.5 text-xs text-slate-200 font-mono-tech focus:outline-none focus:border-[#00F2FE]/50"
           />
         </div>
@@ -69,7 +78,7 @@ export default function Header({
           >
             {junctions.map(j => (
               <option key={j.id} value={j.id} className="bg-slate-950 text-white">
-                {j.name}
+                {j.name} ({j.city})
               </option>
             ))}
           </select>
@@ -77,8 +86,18 @@ export default function Header({
       </div>
 
       {/* Right Actions & User Badge */}
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2.5 flex-wrap">
         
+        {/* Government Audit Report Button */}
+        <button
+          onClick={onOpenGovtReport}
+          title="Government Audit & Certification Export"
+          className="px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex items-center gap-1.5 hover:bg-emerald-500/30 transition cursor-pointer shadow-[0_0_12px_rgba(16,185,129,0.2)]"
+        >
+          <FileText className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">GOVT AUDIT REPORT</span>
+        </button>
+
         {/* AI Voice Copilot Button */}
         <button
           onClick={onOpenVoiceAgent}
