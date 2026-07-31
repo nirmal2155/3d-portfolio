@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Settings, Bell, User, MapPin, Globe, LogOut, ShieldCheck, Lock, Mic, Building, FileText, CheckCircle2 } from 'lucide-react';
+import { Search, Settings, Bell, User, MapPin, Globe, LogOut, ShieldCheck, Lock, Mic, Building, FileText, CheckCircle2, Volume2, Maximize2 } from 'lucide-react';
 
 export default function Header({ 
   selectedJunction, 
@@ -14,6 +14,8 @@ export default function Header({
   onOpenNotifications,
   onOpenVoiceAgent,
   onOpenGovtReport,
+  onOpenAudioSettings,
+  onToggleKiosk,
   topTab,
   setTopTab,
   searchQuery,
@@ -86,8 +88,27 @@ export default function Header({
       </div>
 
       {/* Right Actions & User Badge */}
-      <div className="flex items-center gap-2.5 flex-wrap">
+      <div className="flex items-center gap-2 flex-wrap">
         
+        {/* 4K Kiosk Mode Button */}
+        <button
+          onClick={onToggleKiosk}
+          title="4K Full-Screen Command Center Kiosk Display"
+          className="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-[#00F2FE]/40 text-[#00F2FE] font-bold text-[11px] flex items-center gap-1 hover:bg-slate-800 transition cursor-pointer"
+        >
+          <Maximize2 className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">4K KIOSK</span>
+        </button>
+
+        {/* Audio DSP Settings Button */}
+        <button
+          onClick={onOpenAudioSettings}
+          title="Audio Sound FX & Acoustic DSP Controls"
+          className="p-1.5 rounded-lg bg-slate-900 border border-white/10 text-slate-300 hover:text-[#00F2FE] hover:border-[#00F2FE]/50 transition cursor-pointer"
+        >
+          <Volume2 className="w-4 h-4" />
+        </button>
+
         {/* Government Audit Report Button */}
         <button
           onClick={onOpenGovtReport}

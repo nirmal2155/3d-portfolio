@@ -11,6 +11,8 @@ import NotificationsModal from './components/NotificationsModal';
 import HelpModal from './components/HelpModal';
 import VoiceAgentModal from './components/VoiceAgentModal';
 import GovernmentReportModal from './components/GovernmentReportModal';
+import AudioSettingsModal from './components/AudioSettingsModal';
+import KioskModeOverlay from './components/KioskModeOverlay';
 import FloatingChatWidget from './components/FloatingChatWidget';
 
 import ComputerVisionModule from './components/ComputerVisionModule';
@@ -44,6 +46,7 @@ import { Layers, Filter, ShieldCheck, Play } from 'lucide-react';
 export default function App() {
   const [user, setUser] = useState(null);
   const [showIntro, setShowIntro] = useState(true);
+  const [isKiosk, setIsKiosk] = useState(false);
 
   // Modals state
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -52,6 +55,7 @@ export default function App() {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isVoiceAgentOpen, setIsVoiceAgentOpen] = useState(false);
   const [isGovtReportOpen, setIsGovtReportOpen] = useState(false);
+  const [isAudioSettingsOpen, setIsAudioSettingsOpen] = useState(false);
 
   // Navigation state
   const [currentTab, setCurrentTab] = useState('cv'); // Sidebar tab
@@ -113,6 +117,13 @@ export default function App() {
         <IntroLoader onComplete={() => setShowIntro(false)} />
       )}
 
+      {/* 4K Kiosk Mode Full-Screen Display Overlay */}
+      <KioskModeOverlay
+        isKiosk={isKiosk}
+        setIsKiosk={setIsKiosk}
+        selectedJunction={selectedJunction}
+      />
+
       {/* 1. Animated WebGL Cyber Data Flow Shader Background */}
       <ErrorBoundary>
         <CyberShaderBackground />
@@ -153,6 +164,10 @@ export default function App() {
         onClose={() => setIsGovtReportOpen(false)}
         selectedJunction={selectedJunction}
         user={user}
+      />
+      <AudioSettingsModal
+        isOpen={isAudioSettingsOpen}
+        onClose={() => setIsAudioSettingsOpen(false)}
       />
 
       {/* Floating On-Screen Chat Widget (Bottom Right) */}
@@ -200,6 +215,14 @@ export default function App() {
             }}
             onOpenGovtReport={() => {
               setIsGovtReportOpen(true);
+              soundFx.playClick();
+            }}
+            onOpenAudioSettings={() => {
+              setIsAudioSettingsOpen(true);
+              soundFx.playClick();
+            }}
+            onToggleKiosk={() => {
+              setIsKiosk(true);
               soundFx.playClick();
             }}
             topTab={topTab}
@@ -274,7 +297,7 @@ export default function App() {
                   setIsNotificationsOpen(true);
                   soundFx.playClick();
                 }}
-                className="core-panel p-1.5 rounded-lg text-slate-400 hover:text-slate-200 cursor-pointer"
+                className="core-panel p-1.5 rounded-lg text-[#00F2FE] hover:text-white cursor-pointer"
               >
                 <Filter className="w-4 h-4" />
               </div>
