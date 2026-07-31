@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import CyberShaderBackground from './components/CyberShaderBackground';
 import ErrorBoundary from './components/ErrorBoundary';
+import IntroLoader from './components/IntroLoader';
 
 import AuthModal from './components/AuthModal';
 import SettingsModal from './components/SettingsModal';
@@ -32,10 +33,11 @@ import {
 } from './components/FloatingHudWidgets';
 import { MOCK_JUNCTIONS } from './data/mockJunctions';
 import { soundFx } from './utils/soundEffects';
-import { Layers, Filter, ShieldCheck } from 'lucide-react';
+import { Layers, Filter, ShieldCheck, Play } from 'lucide-react';
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [showIntro, setShowIntro] = useState(true);
 
   // Modals state
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -99,6 +101,11 @@ export default function App() {
   return (
     <div className="min-h-screen relative bg-[#060B13] text-slate-200 flex flex-col font-mono-tech select-none overflow-x-hidden">
       
+      {/* 0. High-Tech Animated Intro Logo Loader (Plays on App Start or Replay) */}
+      {showIntro && (
+        <IntroLoader onComplete={() => setShowIntro(false)} />
+      )}
+
       {/* 1. Animated WebGL Cyber Data Flow Shader Background */}
       <ErrorBoundary>
         <CyberShaderBackground />
@@ -218,6 +225,18 @@ export default function App() {
                 <span className="w-2 h-2 rounded-full bg-[#00F2FE] animate-pulse"></span>
                 <span>ACTIVE VIEW: {topTab.toUpperCase()}_MODE</span>
               </div>
+
+              <button
+                onClick={() => {
+                  setShowIntro(true);
+                  soundFx.playClick();
+                }}
+                className="hidden sm:flex items-center gap-1.5 core-panel px-3 py-1.5 rounded-lg text-[10px] text-[#00F2FE] font-bold border border-[#00F2FE]/40 hover:bg-[#00F2FE]/10 transition cursor-pointer"
+                title="Replay Intro Logo Animation"
+              >
+                <Play className="w-3 h-3 text-[#00F2FE]" />
+                <span>REPLAY INTRO 🎬</span>
+              </button>
 
               <div className="hidden xl:flex items-center gap-1.5 core-panel px-3 py-1.5 rounded-lg text-[10px] text-emerald-400 font-bold border border-emerald-500/30">
                 <ShieldCheck className="w-3.5 h-3.5" />
