@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nirmal Sharma | 3D Interactive Portfolio & WhatsApp Connect</title>
+  
+  <!-- Meta SEO -->
+  <meta name="description" content="Futuristic 3D Animated Web Portfolio of Nirmal Sharma - Full Stack & 3D Web Developer with direct WhatsApp integration.">
+  <meta name="theme-color" content="#090a0f">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Remixicon CDN for Futuristic Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Three.js 3D Background Canvas -->
+  <div id="three-canvas-container"></div>
+
+  <!-- Global Ambient Glow Orbs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#hero" class="nav-brand">
+      <i class="ri-box-3-line" style="color: var(--accent-cyan);"></i>
+      <span id="cfg-name">Nirmalsinh Chauhan</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#hero" class="nav-link active">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#experience" class="nav-link">Journey</a></li>
+      <li><a href="#leadership" class="nav-link">Leadership</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link">WhatsApp</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <!-- Sound Synthesizer Toggle -->
+      <button id="sound-toggle-btn" class="btn-icon-only" title="Toggle Interactive Audio FX">
+        <i class="ri-volume-up-line"></i>
+      </button>
+
+      <!-- Quick WhatsApp Header Action -->
+      <a href="#" class="btn btn-whatsapp trigger-wa-modal">
+        <i class="ri-whatsapp-line"></i> Chat
+      </a>
+    </div>
+  </nav>
+
+  <!-- Floating WhatsApp Quick Button -->
+  <a id="floating-wa-btn" href="https://wa.me/919327949939?text=Hi%20Nirmal!%20I%20visited%20your%203D%20Portfolio%20website%20and%20I%20have%20a%20query%20for%20you." target="_blank" class="floating-whatsapp">
+    <i class="ri-whatsapp-fill"></i>
+    <span>WhatsApp Chat</span>
+  </a>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section id="hero" class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Left Hero Content -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="status-dot"></span>
+            <span>Available for Freelance & 3D Projects</span>
+          </div>
+
+          <h1 class="hero-title">
+            Crafting <span class="gradient-text">Next-Gen</span> <br>
+            <span id="typewriter-text" class="typewriter-span"></span>
+          </h1>
+
+          <p class="hero-subtitle" id="cfg-bio">
+            I craft hyper-immersive, 3D animated web applications, interactive visual experiences, and high-converting modern digital products with direct WhatsApp connectivity.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#" class="btn btn-whatsapp trigger-wa-modal">
+              <i class="ri-whatsapp-line"></i> Start WhatsApp Chat
+            </a>
+            <a href="#projects" class="btn btn-primary">
+              <i class="ri-sparkles-line"></i> Explore 3D Work
+            </a>
+            <a href="#contact" class="btn btn-outline">
+              <i class="ri-mail-send-line"></i> Inquiry Form
+            </a>
+          </div>
+
+          <!-- Hero Live Stat Counters -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h4 id="cfg-stat-projects">35+</h4>
+              <p>Completed Projects</p>
+            </div>
+            <div class="stat-item">
+              <h4 id="cfg-stat-clients">20+</h4>
+              <p>Happy Global Clients</p>
+            </div>
+            <div class="stat-item">
+              <h4 id="cfg-stat-exp">4+ Yrs</h4>
+              <p>Specialized Experience</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero 3D Avatar Card -->
+        <div class="hero-avatar-wrapper">
+          <div class="avatar-3d-card tilt-card">
+            <img src="assets/avatar.jpg" alt="3D Developer Avatar">
+            <div class="avatar-overlay-badge">
+              <div class="info">
+                <h5 id="cfg-title">Full Stack & 3D Web Developer</h5>
+                <p>● Online on WhatsApp</p>
+              </div>
+              <a href="#" class="btn-icon-only trigger-wa-modal" style="background: var(--whatsapp-green); color: #fff; border:none;">
+                <i class="ri-whatsapp-line"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT SECTION ==================== -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">WHO I AM</span>
+        <h2 class="section-title">Bridging 3D Visual Art & Software Engineering</h2>
+        <p class="section-subtitle">Transforming ideas into high-performance, interactive, and conversion-focused web experiences.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="glass-panel about-card tilt-card">
+          <h3>Software Engineer & 3D Developer</h3>
+          <p>
+            Passionate developer skilled in full-stack programming, algorithmic problem solving, database management, and modern 3D WebGL graphics.
+          </p>
+          <div class="about-highlights">
+            <div class="highlight-box">
+              <i class="ri-code-s-slash-line"></i>
+              <h5>Core CS & OOP</h5>
+              <p>Data Structures, Algorithms & Object-Oriented Principles</p>
+            </div>
+            <div class="highlight-box">
+              <i class="ri-pantone-line"></i>
+              <h5>3D & Web UI</h5>
+              <p>Interactive Three.js Meshes & Laravel Web Applications</p>
+            </div>
+            <div class="highlight-box">
+              <i class="ri-database-2-line"></i>
+              <h5>Databases</h5>
+              <p>Relational Data Architecture with MySQL & SQLite</p>
+            </div>
+            <div class="highlight-box">
+              <i class="ri-whatsapp-line"></i>
+              <h5>WhatsApp CRM</h5>
+              <p>Direct 1-Click Client Conversation System</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strengths & Core Mindset -->
+        <div class="glass-panel about-card tilt-card" style="display:flex; flex-direction:column; justify-content:center; gap:1.25rem;">
+          <h4 style="font-family:var(--font-heading); font-size:1.5rem; color:var(--accent-cyan); display:flex; align-items:center; gap:0.5rem;">
+            <i class="ri-mental-health-line"></i> Strengths & Professional Mindset
+          </h4>
+          
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:1rem; color:var(--text-main);">
+            <li style="display:flex; align-items:flex-start; gap:0.8rem; background:rgba(255,255,255,0.03); padding:0.8rem 1rem; border-radius:14px; border:1px solid var(--glass-border);">
+              <i class="ri-brain-line" style="color:var(--accent-cyan); font-size:1.4rem; margin-top:2px;"></i>
+              <div>
+                <strong style="display:block; color:#fff;">Strong Problem-Solving Skills</strong>
+                <span style="font-size:0.85rem; color:var(--text-muted);">Analytical mindset geared towards clean code, efficiency, and debugging.</span>
+              </div>
+            </li>
+            <li style="display:flex; align-items:flex-start; gap:0.8rem; background:rgba(255,255,255,0.03); padding:0.8rem 1rem; border-radius:14px; border:1px solid var(--glass-border);">
+              <i class="ri-flashlight-line" style="color:var(--whatsapp-green); font-size:1.4rem; margin-top:2px;"></i>
+              <div>
+                <strong style="display:block; color:#fff;">Quick Learner & Growth Mindset</strong>
+                <span style="font-size:0.85rem; color:var(--text-muted);">Constantly adopting modern frameworks, tech stacks, and engineering standards.</span>
+              </div>
+            </li>
+            <li style="display:flex; align-items:flex-start; gap:0.8rem; background:rgba(255,255,255,0.03); padding:0.8rem 1rem; border-radius:14px; border:1px solid var(--glass-border);">
+              <i class="ri-team-line" style="color:var(--accent-purple); font-size:1.4rem; margin-top:2px;"></i>
+              <div>
+                <strong style="display:block; color:#fff;">Good Communication & Teamwork</strong>
+                <span style="font-size:0.85rem; color:var(--text-muted);">Effective team collaborator with strong interpersonal and project execution skills.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EDUCATION & EXPERIENCE SECTION ==================== -->
+  <section id="experience" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">BACKGROUND & JOURNEY</span>
+        <h2 class="section-title">Education & Professional Experience</h2>
+        <p class="section-subtitle">Academic achievements at Gujarat University & 1 year hands-on web development experience.</p>
+      </div>
+
+      <div class="about-grid">
+        <!-- Education Card -->
+        <div class="glass-panel about-card tilt-card">
+          <h3 style="display:flex; align-items:center; gap:0.6rem; color:var(--accent-cyan);">
+            <i class="ri-graduation-cap-line"></i> Education Timeline
+          </h3>
+
+          <div style="display:flex; flex-direction:column; gap:1.5rem; margin-top:1.5rem;">
+            <!-- M.Sc IT Cloud Computing -->
+            <div style="position:relative; padding-left:1.5rem; border-left:2px solid var(--accent-cyan);">
+              <span style="font-size:0.75rem; padding:0.2rem 0.6rem; border-radius:12px; background:rgba(0,242,254,0.15); color:var(--accent-cyan); font-weight:700;">CURRENTLY PURSUING</span>
+              <h4 style="font-size:1.15rem; font-weight:800; color:#fff; margin-top:0.4rem;">M.Sc. IT in IMS & Cloud Computing</h4>
+              <p style="font-weight:600; color:var(--text-muted); font-size:0.9rem;">Gujarat University, Ahmedabad</p>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.3rem;">Specializing in Infrastructure Management Services (IMS), Cloud Systems, and Scalable Web Architectures.</p>
+            </div>
+
+            <!-- BCA Distinction -->
+            <div style="position:relative; padding-left:1.5rem; border-left:2px solid var(--whatsapp-green);">
+              <span style="font-size:0.75rem; padding:0.2rem 0.6rem; border-radius:12px; background:rgba(37,211,102,0.15); color:var(--whatsapp-green); font-weight:700;">PASSED WITH DISTINCTION</span>
+              <h4 style="font-size:1.15rem; font-weight:800; color:#fff; margin-top:0.4rem;">Bachelor of Computer Applications (BCA)</h4>
+              <p style="font-weight:600; color:var(--text-muted); font-size:0.9rem;">Navgujarat College of Computer Application, Gujarat University</p>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.3rem;">Graduated with <strong>Distinction</strong> honor. Strong foundation in Data Structures, OOP, Software Engineering & Web Programming.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Card -->
+        <div class="glass-panel about-card tilt-card">
+          <h3 style="display:flex; align-items:center; gap:0.6rem; color:var(--whatsapp-green);">
+            <i class="ri-briefcase-line"></i> Professional Experience (1 Year)
+          </h3>
+
+          <div style="margin-top:1.5rem; position:relative; padding-left:1.5rem; border-left:2px solid var(--accent-purple);">
+            <span style="font-size:0.75rem; padding:0.2rem 0.6rem; border-radius:12px; background:rgba(127,0,255,0.15); color:var(--accent-purple); font-weight:700;">WEB DEVELOPMENT INTERN / DEVELOPER</span>
+            <h4 style="font-size:1.2rem; font-weight:800; color:#fff; margin-top:0.4rem;">Adi Tech</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.8rem;">Dec 2025 – Feb 2026 & Ongoing Web Development Projects</p>
+
+            <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem; font-size:0.88rem; color:var(--text-muted);">
+              <li style="display:flex; align-items:flex-start; gap:0.5rem;">
+                <i class="ri-check-double-line" style="color:var(--accent-cyan); margin-top:3px;"></i>
+                <span>Developed & maintained dynamic web applications utilizing PHP and Laravel framework.</span>
+              </li>
+              <li style="display:flex; align-items:flex-start; gap:0.5rem;">
+                <i class="ri-check-double-line" style="color:var(--accent-cyan); margin-top:3px;"></i>
+                <span>Designed & optimized relational MySQL databases ensuring high performance and data security.</span>
+              </li>
+              <li style="display:flex; align-items:flex-start; gap:0.5rem;">
+                <i class="ri-check-double-line" style="color:var(--accent-cyan); margin-top:3px;"></i>
+                <span>Integrated <strong>Generative AI (Gemini API)</strong> into web apps to build smart, scalable digital solutions.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== VOLUNTEER & COMMUNITY LEADERSHIP ==================== -->
+  <section id="leadership" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">COMMUNITY & LEADERSHIP</span>
+        <h2 class="section-title">Volunteer Experience & Campus Leadership</h2>
+        <p class="section-subtitle">Active community contributions in AI, Web3, and Open Source ecosystems.</p>
+      </div>
+
+      <!-- Volunteer Grid -->
+      <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; margin-bottom: 3rem;">
+        
+        <!-- 1st: Ethereum Foundation Devcon 8 -->
+        <div class="glass-panel skill-card tilt-card" style="align-items: flex-start; padding: 1.75rem; gap: 1.5rem;">
+          <div style="width: 76px; height: 76px; min-width: 76px; border-radius: 20px; background: rgba(255, 255, 255, 0.95); padding: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); box-shadow: 0 8px 25px rgba(127, 0, 255, 0.3);">
+            <img src="assets/logo_ethereum_official.png" alt="Official Ethereum Foundation Devcon Logo" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+          <div class="skill-info">
+            <span style="font-size:0.75rem; padding:0.25rem 0.75rem; border-radius:12px; background:rgba(127,0,255,0.25); color:#d896ff; font-weight:700; display:inline-block; margin-bottom:0.4rem;">SELECTED VOLUNTEER • RUNNING</span>
+            <h4 style="font-size:1.2rem; font-weight:800; color:#fff;">Ethereum Foundation (Devcon 8)</h4>
+            <p style="font-size:0.86rem; color:var(--text-muted); margin-top:0.4rem;">Selected volunteer for the upcoming Devcon 8 conference organized by Ethereum Foundation. Active team member contributing to global Web3 developer community operations.</p>
+          </div>
+        </div>
+
+        <!-- 2nd: OSW Open Source Weekend -->
+        <div class="glass-panel skill-card tilt-card" style="align-items: flex-start; padding: 1.75rem; gap: 1.5rem;">
+          <div style="width: 76px; height: 76px; min-width: 76px; border-radius: 20px; background: rgba(255, 255, 255, 0.95); padding: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);">
+            <img src="assets/logo_osw_official.png" alt="OSW Open Source Weekend Logo" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+          <div class="skill-info">
+            <span style="font-size:0.75rem; padding:0.25rem 0.75rem; border-radius:12px; background:rgba(37,211,102,0.18); color:var(--whatsapp-green); font-weight:700; display:inline-block; margin-bottom:0.4rem;">EVENT EVANGELIST</span>
+            <h4 style="font-size:1.2rem; font-weight:800; color:#fff;">OSW (Open Source Weekend)</h4>
+            <p style="font-size:0.86rem; color:var(--text-muted); margin-top:0.4rem;">Evangelist during Open Source Day events. Advocated for open-source contributions, software engineering practices, and developer networking.</p>
+          </div>
+        </div>
+
+        <!-- 3rd: AI Agent Builder Series (Google x hiDevs) -->
+        <div class="glass-panel skill-card tilt-card" style="align-items: flex-start; padding: 1.75rem; gap: 1.5rem;">
+          <div style="width: 76px; height: 76px; min-width: 76px; border-radius: 20px; background: rgba(255, 255, 255, 0.95); padding: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); box-shadow: 0 8px 25px rgba(0, 242, 254, 0.3);">
+            <img src="assets/logo_google_official.png" alt="Google x hiDevs Logo" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+          <div class="skill-info">
+            <span style="font-size:0.75rem; padding:0.25rem 0.75rem; border-radius:12px; background:rgba(0,242,254,0.18); color:var(--accent-cyan); font-weight:700; display:inline-block; margin-bottom:0.4rem;">AI AGENT BUILDER VOLUNTEER • RUNNING</span>
+            <h4 style="font-size:1.2rem; font-weight:800; color:#fff;">AI Agent Builder Series (Google x hiDevs)</h4>
+            <p style="font-size:0.86rem; color:var(--text-muted); margin-top:0.4rem;">Serving as an active volunteer for the AI Agent Builder Series powered by Google & hiDevs community. Supporting AI builder workshops and developer mentorship.</p>
+          </div>
+        </div>
+
+        <!-- 4th: OnChainGujju Community -->
+        <div class="glass-panel skill-card tilt-card" style="align-items: flex-start; padding: 1.75rem; gap: 1.5rem;">
+          <div style="width: 76px; height: 76px; min-width: 76px; border-radius: 20px; background: rgba(255, 255, 255, 0.95); padding: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); box-shadow: 0 8px 25px rgba(255, 120, 0, 0.3);">
+            <img src="assets/logo_onchaingujju_official.png" alt="OnChainGujju Official Logo" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+          <div class="skill-info">
+            <span style="font-size:0.75rem; padding:0.25rem 0.75rem; border-radius:12px; background:rgba(255,140,0,0.2); color:#ff9f43; font-weight:700; display:inline-block; margin-bottom:0.4rem;">COMMUNITY VOLUNTEER • RUNNING</span>
+            <h4 style="font-size:1.2rem; font-weight:800; color:#fff;">OnChainGujju Community</h4>
+            <p style="font-size:0.86rem; color:var(--text-muted); margin-top:0.4rem;">Serving as an active volunteer for OnChainGujju, bringing Web3 awareness, blockchain education, and decentralized developer ecosystem meetups across Gujarat.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Campus Ambassador Highlight Banner -->
+      <div class="glass-panel tilt-card" style="padding: 2.25rem 2.5rem; border-left: 5px solid #D62828; display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+        <div style="width: 76px; height: 76px; min-width: 76px; border-radius: 22px; background: rgba(255, 255, 255, 0.95); padding: 6px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(214, 40, 40, 0.4); box-shadow: 0 8px 30px rgba(214, 40, 40, 0.4);">
+          <img src="assets/logo_builders_hub_red.svg" alt="Builders Hub Official Red Logo" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div style="flex:1;">
+          <span style="font-size:0.78rem; padding:0.25rem 0.75rem; border-radius:20px; background:rgba(214, 40, 40, 0.2); color:#ff6b6b; font-weight:700; letter-spacing:1px;">CAMPUS AMBASSADOR • GUJARAT UNIVERSITY</span>
+          <h3 style="font-family:var(--font-heading); font-size:1.55rem; font-weight:800; color:#fff; margin-top:0.4rem;">Builders Hub Campus Ambassador</h3>
+          <p style="color:var(--text-muted); font-size:0.92rem; margin-top:0.2rem;">
+            Official Student Campus Ambassador representing <strong>Builders Hub</strong> at <strong>Gujarat University</strong>. Driving tech innovation, developer events, and student builder culture across campus.
+          </p>
+        </div>
+        <div>
+          <a href="#" class="btn btn-whatsapp trigger-wa-modal" data-project="Builders Hub Campus Ambassador">
+            <i class="ri-whatsapp-line"></i> Connect on WA
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS SECTION ==================== -->
+  <section id="skills" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">TECHNICAL SKILLS</span>
+        <h2 class="section-title">Languages, Web & Core Knowledge</h2>
+        <p class="section-subtitle">Categorized technical expertise and core engineering competencies.</p>
+      </div>
+
+      <!-- Skills Category Filter Buttons -->
+      <div class="skills-filter">
+        <button class="filter-btn active" data-filter="all">All Skills</button>
+        <button class="filter-btn" data-filter="lang">Languages</button>
+        <button class="filter-btn" data-filter="web">Web & UI</button>
+        <button class="filter-btn" data-filter="db">Databases</button>
+        <button class="filter-btn" data-filter="core">Core CS</button>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Python -->
+        <div class="glass-panel skill-card tilt-card" data-category="lang">
+          <div class="skill-icon" style="color:#4584b6;"><i class="ri-file-code-line"></i></div>
+          <div class="skill-info">
+            <h4>Python</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="90%" style="background:linear-gradient(90deg, #4584b6, #ffde57);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Java -->
+        <div class="glass-panel skill-card tilt-card" data-category="lang">
+          <div class="skill-icon" style="color:#f89820;"><i class="ri-cup-line"></i></div>
+          <div class="skill-info">
+            <h4>Java</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="85%" style="background:linear-gradient(90deg, #f89820, #5382a1);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C Language -->
+        <div class="glass-panel skill-card tilt-card" data-category="lang">
+          <div class="skill-icon" style="color:#00599C;"><i class="ri-code-s-line"></i></div>
+          <div class="skill-info">
+            <h4>C Language</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="82%" style="background:linear-gradient(90deg, #00599C, #004482);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="glass-panel skill-card tilt-card" data-category="lang">
+          <div class="skill-icon" style="color:#f7df1e;"><i class="ri-javascript-line"></i></div>
+          <div class="skill-info">
+            <h4>JavaScript (ES6+)</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="92%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHP & Laravel Framework -->
+        <div class="glass-panel skill-card tilt-card" data-category="web">
+          <div class="skill-icon" style="color:#FF2D20;"><i class="ri-server-line"></i></div>
+          <div class="skill-info">
+            <h4>PHP & Laravel Framework</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="88%" style="background:linear-gradient(90deg, #FF2D20, #4F5D95);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HTML, CSS & Responsive Design -->
+        <div class="glass-panel skill-card tilt-card" data-category="web">
+          <div class="skill-icon" style="color:#e34f26;"><i class="ri-html5-line"></i></div>
+          <div class="skill-info">
+            <h4>HTML, CSS & Responsive UI</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="95%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Three.js & 3D WebGL -->
+        <div class="glass-panel skill-card tilt-card" data-category="web">
+          <div class="skill-icon" style="color:var(--accent-cyan);"><i class="ri-box-3-line"></i></div>
+          <div class="skill-info">
+            <h4>Three.js & 3D WebGL</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="90%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MySQL Database -->
+        <div class="glass-panel skill-card tilt-card" data-category="db">
+          <div class="skill-icon" style="color:#00758F;"><i class="ri-database-2-line"></i></div>
+          <div class="skill-info">
+            <h4>MySQL Database</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="86%" style="background:linear-gradient(90deg, #00758F, #f29111);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQLite Database -->
+        <div class="glass-panel skill-card tilt-card" data-category="db">
+          <div class="skill-icon" style="color:#003B57;"><i class="ri-database-line"></i></div>
+          <div class="skill-info">
+            <h4>SQLite Database</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="84%" style="background:linear-gradient(90deg, #003B57, #4ca2da);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Structures & Algorithms -->
+        <div class="glass-panel skill-card tilt-card" data-category="core">
+          <div class="skill-icon" style="color:var(--accent-purple);"><i class="ri-git-merge-line"></i></div>
+          <div class="skill-info">
+            <h4>Data Structures & Algorithms</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="88%" style="background:linear-gradient(90deg, #7f00ff, #e100ff);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OOP & Software Engineering Principles -->
+        <div class="glass-panel skill-card tilt-card" data-category="core">
+          <div class="skill-icon" style="color:var(--whatsapp-green);"><i class="ri-cpu-line"></i></div>
+          <div class="skill-info">
+            <h4>OOP & Software Engineering</h4>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-width="92%" style="background:linear-gradient(90deg, #25D366, #128C7E);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS SHOWCASE ==================== -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FEATURED WORK</span>
+        <h2 class="section-title">Trending 3D Projects Showcase</h2>
+        <p class="section-subtitle">Click any project to inquire directly on WhatsApp with pre-filled details.</p>
+      </div>
+
+      <div class="projects-grid">
+        
+        <!-- Project 1: VenuMind AI -->
+        <div class="glass-panel project-card tilt-card" data-category="3d">
+          <div class="project-img-wrapper">
+            <img src="assets/venumind_ai.jpg" alt="VenuMind AI Event Venue Platform">
+            <span class="project-tag">AI & Space Management</span>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">VenuMind AI Platform</h3>
+            <p class="project-desc">Intelligent AI-driven event venue management, space allocation, automated scheduling algorithms, and real-time visitor analytics.</p>
+            <div class="project-tech">
+              <span class="tech-pill">JavaScript</span>
+              <span class="tech-pill">AI Scheduling</span>
+              <span class="tech-pill">Node.js</span>
+              <span class="tech-pill">Glass UI</span>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-whatsapp trigger-wa-modal" data-project="VenuMind AI Platform" title="WhatsApp Chat" style="padding:0.6rem 0.9rem;">
+                <i class="ri-whatsapp-line"></i>
+              </a>
+              <a href="https://github.com/nirmal2155/venumind-ai" target="_blank" class="btn btn-outline" title="GitHub Code" style="padding:0.6rem 0.9rem;">
+                <i class="ri-github-line"></i>
+              </a>
+              <a href="https://venumind-ai.vercel.app" target="_blank" class="btn btn-primary" style="padding:0.6rem 1.2rem;">
+                <i class="ri-external-link-line"></i> View Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: EcoPulse Sustainability Tracker -->
+        <div class="glass-panel project-card tilt-card" data-category="frontend">
+          <div class="project-img-wrapper">
+            <img src="assets/ecopulse.jpg" alt="EcoPulse Sustainability Tracker">
+            <span class="project-tag">React Native & FastAPI</span>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">EcoPulse Sustainability Tracker</h3>
+            <p class="project-desc">Gamified sustainability platform monitoring personal carbon footprints, providing actionable eco-nudges, and rewarding users with Eco-Coins.</p>
+            <div class="project-tech">
+              <span class="tech-pill">React Native</span>
+              <span class="tech-pill">FastAPI</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">Gamification</span>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-whatsapp trigger-wa-modal" data-project="EcoPulse Sustainability Tracker" title="WhatsApp Chat" style="padding:0.6rem 0.9rem;">
+                <i class="ri-whatsapp-line"></i>
+              </a>
+              <a href="https://github.com/nirmal2155/ecopulse" target="_blank" class="btn btn-outline" title="GitHub Code" style="padding:0.6rem 0.9rem;">
+                <i class="ri-github-line"></i>
+              </a>
+              <a href="https://ecopulse-git-main-nirmalsinh-chauhan-s-projects.vercel.app/" target="_blank" class="btn btn-primary" style="padding:0.6rem 1.2rem;">
+                <i class="ri-external-link-line"></i> View Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Place Rental Platform -->
+        <div class="glass-panel project-card tilt-card" data-category="backend">
+          <div class="project-img-wrapper">
+            <img src="assets/place_rental.jpg" alt="Place Rental Platform">
+            <span class="project-tag">Laravel & Rental Booking</span>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Place Rental Platform</h3>
+            <p class="project-desc">Online venue, property & space rental platform with real-time booking, room availability calendars, and payment management.</p>
+            <div class="project-tech">
+              <span class="tech-pill">PHP</span>
+              <span class="tech-pill">Laravel</span>
+              <span class="tech-pill">MySQL</span>
+              <span class="tech-pill">Responsive UI</span>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-whatsapp trigger-wa-modal" data-project="Place Rental Platform" title="WhatsApp Chat" style="padding:0.6rem 0.9rem;">
+                <i class="ri-whatsapp-line"></i>
+              </a>
+              <a href="https://github.com/nirmal2155/placerentalplatform" target="_blank" class="btn btn-outline" title="GitHub Code" style="padding:0.6rem 0.9rem;">
+                <i class="ri-github-line"></i>
+              </a>
+              <a href="https://placerentalplatform.vercel.app" target="_blank" class="btn btn-primary" style="padding:0.6rem 1.2rem;">
+                <i class="ri-external-link-line"></i> View Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: TrafficMitra AI System -->
+        <div class="glass-panel project-card tilt-card" data-category="3d">
+          <div class="project-img-wrapper">
+            <img src="assets/traffic_mitra.jpg" alt="TrafficMitra AI Dashboard">
+            <span class="project-tag">AI & Smart Traffic</span>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">TrafficMitra AI System</h3>
+            <p class="project-desc">Real-time smart traffic management AI system with interactive 3D city holograms, signal control algorithms, and emergency route bypass.</p>
+            <div class="project-tech">
+              <span class="tech-pill">Three.js</span>
+              <span class="tech-pill">Python AI</span>
+              <span class="tech-pill">WebSockets</span>
+              <span class="tech-pill">Glass UI</span>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-whatsapp trigger-wa-modal" data-project="TrafficMitra AI System" title="WhatsApp Chat" style="padding:0.6rem 0.9rem;">
+                <i class="ri-whatsapp-line"></i>
+              </a>
+              <a href="https://github.com/nirmal2155/trafficmitra-ai" target="_blank" class="btn btn-outline" title="GitHub Code" style="padding:0.6rem 0.9rem;">
+                <i class="ri-github-line"></i>
+              </a>
+              <a href="https://trafficmitra-ai.vercel.app" target="_blank" class="btn btn-primary" style="padding:0.6rem 1.2rem;">
+                <i class="ri-external-link-line"></i> View Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5: CarePulse Healthcare System -->
+        <div class="glass-panel project-card tilt-card" data-category="frontend">
+          <div class="project-img-wrapper">
+            <img src="assets/carepulse.jpg" alt="CarePulse Healthcare Platform">
+            <span class="project-tag">HealthTech</span>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">CarePulse Healthcare Platform</h3>
+            <p class="project-desc">Comprehensive patient appointment booking, doctor management portal, electronic medical records, and automated SMS notifications.</p>
+            <div class="project-tech">
+              <span class="tech-pill">Next.js</span>
+              <span class="tech-pill">Tailwind/Glass</span>
+              <span class="tech-pill">Appwrite</span>
+              <span class="tech-pill">Twilio</span>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-whatsapp trigger-wa-modal" data-project="CarePulse Healthcare Platform" title="WhatsApp Chat" style="padding:0.6rem 0.9rem;">
+                <i class="ri-whatsapp-line"></i>
+              </a>
+              <a href="https://github.com/nirmal2155/care-pulse-healthcare-system" target="_blank" class="btn btn-outline" title="GitHub Code" style="padding:0.6rem 0.9rem;">
+                <i class="ri-github-line"></i>
+              </a>
+              <a href="https://care-pulse-healthcare-system.vercel.app" target="_blank" class="btn btn-primary" style="padding:0.6rem 1.2rem;">
+                <i class="ri-external-link-line"></i> View Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6: Smart Waste Management System -->
+        <div class="glass-panel project-card tilt-card" data-category="backend">
+          <div class="project-img-wrapper">
+            <img src="assets/smart_waste.jpg" alt="Smart Waste Management IoT">
+            <span class="project-tag">IoT & Smart City</span>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Smart Waste Management System</h3>
+            <p class="project-desc">IoT-based waste management solution with real-time bin level tracking, smart route optimization, and recycling rewards dashboard.</p>
+            <div class="project-tech">
+              <span class="tech-pill">JavaScript</span>
+              <span class="tech-pill">IoT Sensors</span>
+              <span class="tech-pill">Node.js</span>
+              <span class="tech-pill">Google Maps API</span>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-whatsapp trigger-wa-modal" data-project="Smart Waste Management System" title="WhatsApp Chat" style="padding:0.6rem 0.9rem;">
+                <i class="ri-whatsapp-line"></i>
+              </a>
+              <a href="https://github.com/nirmal2155/smart-waste-management" target="_blank" class="btn btn-outline" title="GitHub Code" style="padding:0.6rem 0.9rem;">
+                <i class="ri-github-line"></i>
+              </a>
+              <a href="https://ecoflow-smart-waste.vercel.app/" target="_blank" class="btn btn-primary" style="padding:0.6rem 1.2rem;">
+                <i class="ri-external-link-line"></i> View Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT & WHATSAPP GENERATOR ==================== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">GET IN TOUCH</span>
+        <h2 class="section-title">Instant WhatsApp Message Builder</h2>
+        <p class="section-subtitle">Select a template or type your message to open a direct chat on WhatsApp immediately.</p>
+      </div>
+
+      <div class="contact-grid">
+        
+        <!-- Contact Info Card -->
+        <div class="glass-panel contact-info-card tilt-card">
+          <h3 style="font-family:var(--font-heading); font-size:1.8rem; margin-bottom:1.5rem;">Let's Connect Directly!</h3>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="ri-whatsapp-line"></i></div>
+            <div class="contact-details">
+              <h5>WhatsApp Instant Chat</h5>
+              <p id="cfg-phone-display">+91 93279 49939</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon" style="color:var(--accent-cyan); background:rgba(0,242,254,0.1);"><i class="ri-mail-line"></i></div>
+            <div class="contact-details">
+              <h5>Email Address</h5>
+              <p id="cfg-email-display">chauhannirmalsinh728@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon" style="color:var(--accent-purple); background:rgba(127,0,255,0.1);"><i class="ri-map-pin-line"></i></div>
+            <div class="contact-details">
+              <h5>Location & Timezone</h5>
+              <p>Ahmedabad, Gujarat, India (IST, GMT+5:30)</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon" style="color:var(--accent-cyan); background:rgba(0,242,254,0.1);"><i class="ri-twitter-x-line"></i></div>
+            <div class="contact-details">
+              <h5>X (Twitter) Handle</h5>
+              <p><a href="https://x.com/ChauhanNir11212" target="_blank" style="color:var(--accent-cyan); text-decoration:none; font-weight:600;">@ChauhanNir11212</a></p>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem; padding:1.2rem; border-radius:16px; background:rgba(37,211,102,0.1); border:1px solid rgba(37,211,102,0.3);">
+            <p style="font-size:0.85rem; color:#fff; display:flex; align-items:center; gap:0.5rem;">
+              <i class="ri-flashlight-line" style="color:var(--whatsapp-green); font-size:1.2rem;"></i>
+              <strong>Fast Response Guarantee:</strong> Typical response time under 15 minutes on WhatsApp!
+            </p>
+          </div>
+        </div>
+
+        <!-- WhatsApp Interactive Builder Form -->
+        <div class="glass-panel whatsapp-form-panel tilt-card">
+          <h3 style="font-family:var(--font-heading); font-size:1.6rem; margin-bottom:1rem;">Generate WhatsApp Chat</h3>
+
+          <div class="template-chips">
+            <span class="template-chip active" data-template="hire">💼 Hire Me</span>
+            <span class="template-chip" data-template="inquiry">🚀 Project Quote</span>
+            <span class="template-chip" data-template="consultation">🤝 Consultation</span>
+          </div>
+
+          <form id="whatsapp-form">
+            <div class="form-group">
+              <label class="form-label">Your Name (Optional)</label>
+              <input type="text" id="wa-name" class="form-input" placeholder="e.g. Rahul Verma">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Service Required</label>
+              <select id="wa-service" class="form-select">
+                <option value="3D Animated Website">3D Animated Website (Three.js & Canvas)</option>
+                <option value="Full Stack Web Application">Full Stack Web Application</option>
+                <option value="AI & Analytics Dashboard">AI & Analytics Dashboard</option>
+                <option value="Custom WhatsApp Integration">Custom WhatsApp Integration</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Your Message</label>
+              <textarea id="wa-message" class="form-textarea" rows="4" placeholder="Type your project message here...">Hi Nirmal! 👋 I visited your 3D Portfolio website and I'd like to hire you for a project. Let's discuss details!</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-whatsapp" style="width:100%; justify-content:center; font-size:1.05rem; padding:0.9rem;">
+              <i class="ri-whatsapp-line" style="font-size:1.3rem;"></i> Launch WhatsApp Chat Now
+            </button>
+
+            <button type="button" class="btn btn-outline" onclick="window.downloadExcelLeadsFile()" style="width:100%; justify-content:center; margin-top:0.75rem; font-size:0.88rem;">
+              <i class="ri-file-excel-2-line" style="color:var(--whatsapp-green);"></i> 📊 Download Excel Sheet Leads (.csv)
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="nav-brand" style="font-size:1.5rem;">
+          <i class="ri-box-3-line" style="color: var(--accent-cyan);"></i>
+          <span id="footer-name">Nirmalsinh Chauhan</span>
+        </div>
+        <p style="color:var(--text-muted); max-width:500px; font-size:0.9rem;">
+          Designing and coding high-performance 3D web experiences and instant WhatsApp connected platforms.
+        </p>
+
+        <div class="footer-socials">
+          <a href="#" class="social-icon whatsapp trigger-wa-modal" title="WhatsApp"><i class="ri-whatsapp-line"></i></a>
+          <a href="https://github.com/nirmal2155" target="_blank" class="social-icon" title="GitHub"><i class="ri-github-line"></i></a>
+          <a href="https://in.linkedin.com/in/chauhan-nirmalsinh-28108a27a" target="_blank" class="social-icon" title="LinkedIn"><i class="ri-linkedin-line"></i></a>
+          <a href="https://x.com/ChauhanNir11212" target="_blank" class="social-icon" title="X (Twitter)"><i class="ri-twitter-x-line"></i></a>
+        </div>
+
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">
+          © 2026 Nirmalsinh Chauhan. All Rights Reserved. Built with Three.js & Vanilla CSS.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== QUICK WHATSAPP MODAL ==================== -->
+  <div id="whatsapp-modal" class="modal-overlay">
+    <div class="glass-panel modal-container">
+      <button id="close-wa-modal" class="modal-close"><i class="ri-close-line"></i></button>
+      
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <div style="width:60px; height:60px; border-radius:50%; background:rgba(37,211,102,0.15); color:var(--whatsapp-green); display:inline-flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:0.8rem;">
+          <i class="ri-whatsapp-line"></i>
+        </div>
+        <h3 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800;">Direct WhatsApp Connect</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem;">Start instant conversation on WhatsApp Web or App.</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:0.8rem; margin-bottom:1.5rem;">
+        <button class="btn btn-outline" style="justify-content:flex-start;" onclick="window.openWhatsAppChat('Hi Nirmal! 👋 I want to hire you for a custom 3D website project.')">
+          <i class="ri-briefcase-line" style="color:var(--accent-cyan);"></i> 💼 Hire for 3D Website Project
+        </button>
+        <button class="btn btn-outline" style="justify-content:flex-start;" onclick="window.openWhatsAppChat('Hello Nirmal! 🚀 I would like to get a pricing quote for a web application.')">
+          <i class="ri-money-dollar-circle-line" style="color:var(--whatsapp-green);"></i> 💰 Request Web App Quote
+        </button>
+        <button class="btn btn-outline" style="justify-content:flex-start;" onclick="window.openWhatsAppChat('Hi Nirmal, let\'s schedule a quick call to discuss web development.')">
+          <i class="ri-phone-line" style="color:var(--accent-purple);"></i> 📞 Schedule Consultation Call
+        </button>
+      </div>
+
+      <button class="btn btn-whatsapp" style="width:100%; justify-content:center;" onclick="window.openWhatsAppChat()">
+        <i class="ri-whatsapp-line"></i> Open Blank WhatsApp Chat
+      </button>
+    </div>
+  </div>
+
+  <!-- JavaScript Libraries & Modules -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/three-bg.js"></script>
+  <script src="js/whatsapp-modal.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

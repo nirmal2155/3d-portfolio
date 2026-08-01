@@ -1,0 +1,9 @@
+[
+  {
+    "timestamp": "2026-08-01 12:30:00",
+    "name": "Sample Lead (System Init)",
+    "service": "3D Website Inquiry",
+    "message": "Hi Nirmal! All submitted form inquiries will be saved in your personal Excel CSV and JSON database.",
+    "status": "Logged"
+  }
+]
