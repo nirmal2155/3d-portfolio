@@ -40,8 +40,15 @@
     mouseY = (event.clientY - windowHalfY) * 0.0015;
   });
 
-  // 1. Particle Starfield Universe
-  const particleCount = 2000;
+  document.addEventListener('touchmove', (event) => {
+    if (event.touches.length > 0) {
+      mouseX = (event.touches[0].clientX - windowHalfX) * 0.0015;
+      mouseY = (event.touches[0].clientY - windowHalfY) * 0.0015;
+    }
+  }, { passive: true });
+
+  // 1. Particle Starfield Universe (Optimized for Mobile & Laptop)
+  const particleCount = window.innerWidth < 768 ? 1000 : 2200;
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
   const colors = new Float32Array(particleCount * 3);
