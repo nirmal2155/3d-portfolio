@@ -35,12 +35,22 @@
   const windowHalfX = window.innerWidth / 2;
   const windowHalfY = window.innerHeight / 2;
 
+  const isMobile = window.innerWidth <= 768;
+
+  // Mouse & Touch tracking for 3D parallax
   document.addEventListener('mousemove', (event) => {
     mouseX = (event.clientX - windowHalfX) * 0.0015;
     mouseY = (event.clientY - windowHalfY) * 0.0015;
-  });
+  }, { passive: true });
 
-  // 1. Particle Starfield Universe
+  document.addEventListener('touchmove', (event) => {
+    if (event.touches.length > 0) {
+      mouseX = (event.touches[0].clientX - windowHalfX) * 0.0012;
+      mouseY = (event.touches[0].clientY - windowHalfY) * 0.0012;
+    }
+  }, { passive: true });
+
+  // 1. Particle Starfield Universe (Optimized & Fatter Glow for Mobile View)
   const particleCount = 2000;
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
@@ -68,29 +78,34 @@
   geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   const particleMaterial = new THREE.PointsMaterial({
-    size: 0.25,
+    size: isMobile ? 0.45 : 0.25,
     vertexColors: true,
     transparent: true,
-    opacity: 0.75,
+    opacity: 0.85,
     blending: THREE.AdditiveBlending
   });
 
   const particleSystem = new THREE.Points(geometry, particleMaterial);
   scene.add(particleSystem);
 
-  // 2. Central 3D Interactive Icosahedron Mesh
+  // 2. Central 3D Interactive Icosahedron Mesh (Centered for Mobile View!)
   const meshGeometry = new THREE.IcosahedronGeometry(9, 2);
   const meshMaterial = new THREE.MeshPhongMaterial({
     color: 0x00f2fe,
     wireframe: true,
     transparent: true,
-    opacity: 0.35,
+    opacity: 0.4,
     emissive: 0x128C7E,
-    emissiveIntensity: 0.2
+    emissiveIntensity: 0.25
   });
 
   const mainMesh = new THREE.Mesh(meshGeometry, meshMaterial);
-  mainMesh.position.set(12, 0, -5);
+  if (isMobile) {
+    mainMesh.position.set(0, 0, -8); // Centered in mobile phone view!
+    mainMesh.scale.set(0.8, 0.8, 0.8);
+  } else {
+    mainMesh.position.set(12, 0, -5);
+  }
   scene.add(mainMesh);
 
   // Inner Core Sphere
@@ -99,7 +114,7 @@
     color: 0x25D366,
     wireframe: true,
     transparent: true,
-    opacity: 0.2
+    opacity: 0.25
   });
   const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
   mainMesh.add(coreMesh);
@@ -191,8 +206,17 @@
 
   // Window Resize Handler
   window.addEventListener('resize', () => {
+    const mobile = window.innerWidth <= 768;
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+
+    if (mobile) {
+      mainMesh.position.set(0, 0, -8);
+      mainMesh.scale.set(0.8, 0.8, 0.8);
+    } else {
+      mainMesh.position.set(12, 0, -5);
+      mainMesh.scale.set(1, 1, 1);
+    }
   });
 })();

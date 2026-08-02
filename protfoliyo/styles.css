@@ -1000,7 +1000,7 @@ body {
   color: #fff;
 }
 
-/* Responsive Media Queries */
+/* Responsive Media Queries & Mobile 3D Visibility Polish */
 @media (max-width: 992px) {
   .hero-grid, .about-grid, .contact-grid {
     grid-template-columns: 1fr;
@@ -1013,18 +1013,80 @@ body {
     margin-bottom: 2rem;
   }
   .nav-links {
-    display: none; /* Mobile menu can be toggled */
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Enforce smooth horizontal containment while showing 3D background animation clearly */
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
+  .container {
+    padding: 0 1.2rem;
+  }
+
+  .hero-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-subtitle {
+    text-align: center;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8rem;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+  }
+
+  .avatar-3d-card {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .project-actions {
+    gap: 0.5rem;
+  }
+
+  /* Make glass panels semi-transparent on phone so 3D starfield particles and glowing polyhedra shine through! */
+  .glass-panel {
+    background: rgba(18, 22, 42, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
 }
 
 @media (max-width: 576px) {
   .hero-title {
-    font-size: 2.2rem;
+    font-size: 2.15rem;
+    line-height: 1.25;
+  }
+  .hero-subtitle {
+    font-size: 0.94rem;
   }
   .hero-stats {
     grid-template-columns: 1fr;
+    gap: 0.8rem;
   }
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .section {
+    padding: 3rem 0;
   }
 }
