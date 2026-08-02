@@ -5,6 +5,7 @@
 .env.test.local
 .env.production.local
 *.env
+*.zip
 
 # Dependencies & Build Output
 node_modules/
@@ -23,3 +24,5 @@ scratch/
 # OS Files
 .DS_Store
 Thumbs.db
+
+.vercel

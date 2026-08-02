@@ -20,13 +20,21 @@
   );
   camera.position.z = 30;
 
-  // WebGL Renderer
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  const isMobile = window.innerWidth <= 768;
+
+  // WebGL Renderer with mobile performance optimizations
+  const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: !isMobile,
+    powerPreference: 'high-performance',
+    precision: isMobile ? 'mediump' : 'highp'
+  });
+
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
   container.appendChild(renderer.domElement);
 
-  // Mouse tracking
+  // Mouse & Touch tracking
   let mouseX = 0;
   let mouseY = 0;
   let targetX = 0;
@@ -38,7 +46,7 @@
   document.addEventListener('mousemove', (event) => {
     mouseX = (event.clientX - windowHalfX) * 0.0015;
     mouseY = (event.clientY - windowHalfY) * 0.0015;
-  });
+  }, { passive: true });
 
   document.addEventListener('touchmove', (event) => {
     if (event.touches.length > 0) {
@@ -48,7 +56,7 @@
   }, { passive: true });
 
   // 1. Particle Starfield Universe (Optimized for Mobile & Laptop)
-  const particleCount = window.innerWidth < 768 ? 1000 : 2200;
+  const particleCount = isMobile ? 500 : 2000;
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
   const colors = new Float32Array(particleCount * 3);
@@ -75,7 +83,7 @@
   geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   const particleMaterial = new THREE.PointsMaterial({
-    size: 0.25,
+    size: isMobile ? 0.35 : 0.25,
     vertexColors: true,
     transparent: true,
     opacity: 0.75,
@@ -86,7 +94,7 @@
   scene.add(particleSystem);
 
   // 2. Central 3D Interactive Icosahedron Mesh
-  const meshGeometry = new THREE.IcosahedronGeometry(9, 2);
+  const meshGeometry = new THREE.IcosahedronGeometry(isMobile ? 7 : 9, isMobile ? 1 : 2);
   const meshMaterial = new THREE.MeshPhongMaterial({
     color: 0x00f2fe,
     wireframe: true,
@@ -97,11 +105,11 @@
   });
 
   const mainMesh = new THREE.Mesh(meshGeometry, meshMaterial);
-  mainMesh.position.set(12, 0, -5);
+  mainMesh.position.set(isMobile ? 0 : 12, isMobile ? -14 : 0, isMobile ? -10 : -5);
   scene.add(mainMesh);
 
   // Inner Core Sphere
-  const coreGeometry = new THREE.SphereGeometry(4, 16, 16);
+  const coreGeometry = new THREE.SphereGeometry(isMobile ? 3 : 4, 12, 12);
   const coreMaterial = new THREE.MeshBasicMaterial({
     color: 0x25D366,
     wireframe: true,
@@ -113,28 +121,28 @@
 
   // 3. Floating 3D Orbs / Floating Polyhedra
   const floatingGroup = new THREE.Group();
-
   const floatGeometries = [
-    new THREE.OctahedronGeometry(2, 0),
-    new THREE.TetrahedronGeometry(2.5, 0),
-    new THREE.DodecahedronGeometry(1.8, 0)
+    new THREE.OctahedronGeometry(1.8, 0),
+    new THREE.TetrahedronGeometry(2, 0),
+    new THREE.DodecahedronGeometry(1.5, 0)
   ];
 
   const floatingObjects = [];
+  const floatCount = isMobile ? 3 : 8;
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < floatCount; i++) {
     const geom = floatGeometries[i % floatGeometries.length];
-    const mat = new THREE.MeshStandardMaterial({
+    const mat = new THREE.MeshBasicMaterial({
       color: i % 2 === 0 ? 0x00f2fe : 0x25D366,
       wireframe: true,
       transparent: true,
-      opacity: 0.4
+      opacity: 0.35
     });
     const obj = new THREE.Mesh(geom, mat);
 
     obj.position.set(
-      (Math.random() - 0.5) * 60,
-      (Math.random() - 0.5) * 40,
+      (Math.random() - 0.5) * (isMobile ? 35 : 60),
+      (Math.random() - 0.5) * (isMobile ? 35 : 40),
       (Math.random() - 0.5) * 30
     );
 
@@ -152,13 +160,15 @@
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
   scene.add(ambientLight);
 
-  const pointLight1 = new THREE.PointLight(0x00f2fe, 2, 50);
+  const pointLight1 = new THREE.PointLight(0x00f2fe, 1.8, 50);
   pointLight1.position.set(15, 15, 15);
   scene.add(pointLight1);
 
-  const pointLight2 = new THREE.PointLight(0x25D366, 2, 50);
-  pointLight2.position.set(-15, -15, -15);
-  scene.add(pointLight2);
+  // Page Visibility & Scroll Throttling
+  let isTabActive = true;
+  document.addEventListener('visibilitychange', () => {
+    isTabActive = !document.hidden;
+  });
 
   // Animation Loop
   let clock = new THREE.Clock();
@@ -166,9 +176,12 @@
   function animate() {
     requestAnimationFrame(animate);
 
+    // Skip render if tab is hidden to save GPU & battery
+    if (!isTabActive) return;
+
     const elapsedTime = clock.getElapsedTime();
 
-    // Smooth mouse parallax
+    // Smooth mouse/touch parallax
     targetX += (mouseX - targetX) * 0.05;
     targetY += (mouseY - targetY) * 0.05;
 
@@ -197,9 +210,15 @@
   animate();
 
   // Window Resize Handler
+  let resizeTimeout;
   window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth <= 768 ? 1.25 : 2));
+    }, 150);
   });
+})();
 })();

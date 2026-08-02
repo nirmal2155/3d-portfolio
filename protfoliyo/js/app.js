@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollSpy();
   initSoundSynth();
   initIntersectionObservers();
+  initMobileNav();
 });
 
 /* 1. Typewriter Effect for Hero */
@@ -58,23 +59,33 @@ function initTypewriter() {
   type();
 }
 
-/* 2. 3D Interactive Card Tilt Effect */
+/* 2. 3D Interactive Card Tilt Effect (Desktop Mouse Only - Throttled for Performance) */
 function init3DTiltCards() {
+  const isDesktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isDesktopPointer) return;
+
   const tiltCards = document.querySelectorAll('.tilt-card, .avatar-3d-card, .project-card, .skill-card, .glass-panel');
 
   tiltCards.forEach((card) => {
+    let ticking = false;
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
 
-      const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg
-      const rotateY = ((x - centerX) / centerX) * 10;
+          const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg for subtle smooth feel
+          const rotateY = ((x - centerX) / centerX) * 6;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
     });
 
     card.addEventListener('mouseleave', () => {
@@ -223,4 +234,33 @@ function initIntersectionObservers() {
   );
 
   progressBars.forEach((bar) => observer.observe(bar));
+}
+
+/* 7. Mobile Navigation Drawer Toggle */
+function initMobileNav() {
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const overlay = document.getElementById('mobile-nav-overlay');
+  const closeBtn = document.getElementById('close-mobile-nav');
+  const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (menuBtn && overlay) {
+    menuBtn.addEventListener('click', () => {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeNav = () => {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeNav();
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', closeNav);
+    });
+  }
 }
