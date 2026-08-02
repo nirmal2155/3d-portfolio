@@ -66,9 +66,13 @@
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      const name = nameInput ? nameInput.value.trim() : '';
-      const service = serviceInput ? serviceInput.value.trim() : 'Web Development';
-      const userMsg = messageInput ? messageInput.value.trim() : '';
+      const rawName = nameInput ? nameInput.value.trim() : '';
+      const rawService = serviceInput ? serviceInput.value.trim() : 'Web Development';
+      const rawUserMsg = messageInput ? messageInput.value.trim() : '';
+
+      const name = sanitizeText(rawName);
+      const service = sanitizeText(rawService);
+      const userMsg = sanitizeText(rawUserMsg);
 
       if (!userMsg) {
         alert('Please enter your message before sending via WhatsApp!');
@@ -88,6 +92,12 @@
 
       window.openWhatsAppChat(formattedText);
     });
+  }
+
+  // Security Helper: Sanitize input strings
+  function sanitizeText(str) {
+    if (!str) return '';
+    return str.replace(/[\x00-\x1F\x7F-\x9F]/g, '').trim();
   }
 
   // Local Excel Lead Database Logger
