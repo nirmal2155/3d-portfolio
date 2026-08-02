@@ -34,7 +34,7 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
   container.appendChild(renderer.domElement);
 
-  // Mouse & Touch tracking
+  // Mouse tracking (Desktop only to prevent mobile touch wobble)
   let mouseX = 0;
   let mouseY = 0;
   let targetX = 0;
@@ -43,17 +43,12 @@
   const windowHalfX = window.innerWidth / 2;
   const windowHalfY = window.innerHeight / 2;
 
-  document.addEventListener('mousemove', (event) => {
-    mouseX = (event.clientX - windowHalfX) * 0.0015;
-    mouseY = (event.clientY - windowHalfY) * 0.0015;
-  }, { passive: true });
-
-  document.addEventListener('touchmove', (event) => {
-    if (event.touches.length > 0) {
-      mouseX = (event.touches[0].clientX - windowHalfX) * 0.0015;
-      mouseY = (event.touches[0].clientY - windowHalfY) * 0.0015;
-    }
-  }, { passive: true });
+  if (!isMobile) {
+    document.addEventListener('mousemove', (event) => {
+      mouseX = (event.clientX - windowHalfX) * 0.0015;
+      mouseY = (event.clientY - windowHalfY) * 0.0015;
+    }, { passive: true });
+  }
 
   // 1. Particle Starfield Universe (Optimized for Mobile & Laptop)
   const particleCount = isMobile ? 500 : 2000;
@@ -181,13 +176,15 @@
 
     const elapsedTime = clock.getElapsedTime();
 
-    // Smooth mouse/touch parallax
-    targetX += (mouseX - targetX) * 0.05;
-    targetY += (mouseY - targetY) * 0.05;
+    // Smooth mouse parallax (Desktop only to guarantee 100% mobile screen stability)
+    if (!isMobile) {
+      targetX += (mouseX - targetX) * 0.05;
+      targetY += (mouseY - targetY) * 0.05;
 
-    camera.position.x += (targetX * 10 - camera.position.x) * 0.05;
-    camera.position.y += (-targetY * 10 - camera.position.y) * 0.05;
-    camera.lookAt(scene.position);
+      camera.position.x += (targetX * 10 - camera.position.x) * 0.05;
+      camera.position.y += (-targetY * 10 - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
+    }
 
     // Rotate main 3D Mesh
     mainMesh.rotation.x = elapsedTime * 0.15;
