@@ -1000,6 +1000,92 @@ body {
   color: #fff;
 }
 
+/* 3D Holographic QR Scanner Frame & Laser Animation */
+.qr-3d-wrapper {
+  position: relative;
+  display: inline-block;
+  perspective: 1000px;
+  margin: 1rem 0 1.5rem 0;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.qr-3d-card {
+  position: relative;
+  background: rgba(12, 16, 32, 0.9);
+  padding: 1.25rem;
+  border-radius: 24px;
+  border: 1px solid var(--glass-border-hover);
+  box-shadow: 
+    0 20px 50px rgba(0, 242, 254, 0.3),
+    0 0 35px rgba(127, 0, 255, 0.25),
+    inset 0 0 25px rgba(0, 242, 254, 0.2);
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(8deg) rotateY(-5deg) translateZ(10px);
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.4s ease;
+}
+
+.qr-3d-card:hover {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(20px) scale(1.03);
+  box-shadow: 
+    0 25px 60px rgba(0, 242, 254, 0.5),
+    0 0 45px rgba(37, 211, 102, 0.35);
+}
+
+.qr-3d-image {
+  width: 240px;
+  height: 240px;
+  border-radius: 16px;
+  display: block;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  position: relative;
+  z-index: 2;
+  border: 2px solid rgba(0, 242, 254, 0.6);
+  background: #090a0f;
+}
+
+/* 3D Holographic Scanning Laser Line */
+.qr-laser-scanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #00f2fe, #25D366, transparent);
+  box-shadow: 0 0 15px #00f2fe, 0 0 25px #25D366;
+  z-index: 3;
+  animation: scanLaser 2.2s infinite ease-in-out alternate;
+  border-radius: 2px;
+}
+
+@keyframes scanLaser {
+  0% {
+    top: 5%;
+    opacity: 0.9;
+  }
+  100% {
+    top: 92%;
+    opacity: 0.9;
+  }
+}
+
+/* 3D Futuristic Corner Brackets */
+.qr-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: var(--accent-cyan);
+  border-style: solid;
+  z-index: 4;
+  pointer-events: none;
+}
+.qr-corner-tl { top: 10px; left: 10px; border-width: 3px 0 0 3px; border-top-left-radius: 6px; }
+.qr-corner-tr { top: 10px; right: 10px; border-width: 3px 3px 0 0; border-top-right-radius: 6px; }
+.qr-corner-bl { bottom: 10px; left: 10px; border-width: 0 0 3px 3px; border-bottom-left-radius: 6px; }
+.qr-corner-br { bottom: 10px; right: 10px; border-width: 0 3px 3px 0; border-bottom-right-radius: 6px; }
+
 /* Responsive Media Queries & Mobile 3D Visibility Polish */
 @media (max-width: 992px) {
   .hero-grid, .about-grid, .contact-grid {
