@@ -228,24 +228,35 @@ function initIntersectionObservers() {
 
 /* 7. QR Code Scanner Modal Toggle */
 function initQRModal() {
-  const btn = document.getElementById('qr-modal-btn');
   const modal = document.getElementById('qr-modal');
+  const triggers = document.querySelectorAll('#qr-modal-btn, .trigger-qr-modal');
   const closeBtn = document.getElementById('close-qr-modal');
 
-  if (btn && modal) {
-    btn.addEventListener('click', () => {
-      modal.classList.add('active');
+  if (modal) {
+    triggers.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
     });
 
+    const closeModal = () => {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
     if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal();
       });
     }
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        modal.classList.remove('active');
+        closeModal();
       }
     });
   }
