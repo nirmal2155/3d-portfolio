@@ -48,11 +48,6 @@
     </ul>
 
     <div class="nav-actions">
-      <!-- QR Code Scanner Modal Trigger Button -->
-      <button id="qr-modal-btn" class="btn-icon-only" title="Share & Scan Portfolio QR Code">
-        <i class="ri-qr-code-line"></i>
-      </button>
-
       <!-- Sound Synthesizer Toggle -->
       <button id="sound-toggle-btn" class="btn-icon-only" title="Toggle Interactive Audio FX">
         <i class="ri-volume-up-line"></i>
@@ -851,47 +846,6 @@
       <button class="btn btn-whatsapp" style="width:100%; justify-content:center;" onclick="window.openWhatsAppChat()">
         <i class="ri-whatsapp-line"></i> Open Blank WhatsApp Chat
       </button>
-  <!-- ==================== PORTFOLIO 3D HOLOGRAPHIC QR SCANNER MODAL ==================== -->
-  <div id="qr-modal" class="modal-overlay">
-    <div class="glass-panel modal-card tilt-card" style="max-width:440px; text-align:center; padding:2rem 1.5rem; position:relative;">
-      <button id="close-qr-modal" class="modal-close"><i class="ri-close-line"></i></button>
-      
-      <h3 style="font-family:var(--font-heading); font-size:1.6rem; color:var(--accent-cyan); margin-bottom:0.4rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-        <i class="ri-qr-code-line" style="font-size:1.8rem;"></i> 3D Official Scanner
-      </h3>
-      <p style="color:var(--text-muted); font-size:0.88rem;">
-        Scan this 3D QR Code with any phone camera or click on it to open the website directly!
-      </p>
-
-      <!-- 3D Holographic Container with Clickable Live Link -->
-      <a href="https://protfoliyo-kappa.vercel.app" target="_blank" rel="noopener noreferrer" class="qr-3d-wrapper" title="Click to open Live Portfolio Website" style="text-decoration:none; cursor:pointer; display:inline-block;">
-        <div class="qr-3d-card tilt-card">
-          <div class="qr-corner qr-corner-tl"></div>
-          <div class="qr-corner qr-corner-tr"></div>
-          <div class="qr-corner qr-corner-bl"></div>
-          <div class="qr-corner qr-corner-br"></div>
-          <div class="qr-laser-scanner"></div>
-          <img src="assets/portfolio_qr_scanner.png" alt="3D Portfolio QR Code Scanner" class="qr-3d-image">
-        </div>
-        <div style="font-size:0.82rem; color:var(--accent-cyan); margin-top:0.6rem; font-weight:600; display:flex; align-items:center; justify-content:center; gap:0.35rem;">
-          <i class="ri-external-link-line"></i> Click QR Code to Open Live Site
-        </div>
-      </a>
-
-      <div style="display:flex; flex-direction:column; gap:0.65rem; margin-top:0.5rem;">
-        <a href="https://protfoliyo-kappa.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="justify-content:center; font-weight:700;">
-          <i class="ri-external-link-line"></i> 🌐 Open Live Website Page
-        </a>
-        <a href="assets/portfolio_qr_scanner.png" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="justify-content:center; font-weight:600;">
-          <i class="ri-image-line" style="color:var(--accent-cyan);"></i> 🔍 Open Full-Screen 3D QR Image
-        </a>
-        <a href="assets/portfolio_qr_scanner.png" download="Nirmalsinh_Chauhan_3D_Portfolio_QR.png" class="btn btn-outline" style="justify-content:center;">
-          <i class="ri-download-2-line" style="color:var(--whatsapp-green);"></i> 💾 Download 3D QR Scanner Image (.png)
-        </a>
-        <button type="button" class="btn btn-outline" style="justify-content:center; font-size:0.85rem;" onclick="navigator.clipboard.writeText('https://protfoliyo-kappa.vercel.app'); alert('Live Portfolio URL copied to clipboard!');">
-          <i class="ri-file-copy-line"></i> 📋 Copy Live Portfolio Link
-        </button>
-      </div>
     </div>
   </div>
 
