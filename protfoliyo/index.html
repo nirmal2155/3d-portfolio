@@ -48,6 +48,11 @@
     </ul>
 
     <div class="nav-actions">
+      <!-- QR Code Scanner Modal Trigger Button -->
+      <button id="qr-modal-btn" class="btn-icon-only" title="Share & Scan Portfolio QR Code">
+        <i class="ri-qr-code-line"></i>
+      </button>
+
       <!-- Sound Synthesizer Toggle -->
       <button id="sound-toggle-btn" class="btn-icon-only" title="Toggle Interactive Audio FX">
         <i class="ri-volume-up-line"></i>
@@ -846,6 +851,30 @@
       <button class="btn btn-whatsapp" style="width:100%; justify-content:center;" onclick="window.openWhatsAppChat()">
         <i class="ri-whatsapp-line"></i> Open Blank WhatsApp Chat
       </button>
+  <!-- ==================== PORTFOLIO QR CODE SCANNER MODAL ==================== -->
+  <div id="qr-modal" class="modal-overlay">
+    <div class="glass-panel modal-card tilt-card" style="max-width:420px; text-align:center; padding:2rem; position:relative;">
+      <button id="close-qr-modal" class="modal-close"><i class="ri-close-line"></i></button>
+      
+      <h3 style="font-family:var(--font-heading); font-size:1.5rem; color:var(--accent-cyan); margin-bottom:0.5rem;">
+        <i class="ri-qr-code-line"></i> Official Website Scanner
+      </h3>
+      <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.25rem;">
+        Scan this QR Code with any phone camera to instantly open Nirmalsinh Chauhan's 3D Portfolio!
+      </p>
+
+      <div style="background:#090a0f; padding:1.2rem; border-radius:20px; border:2px solid var(--accent-cyan); display:inline-block; box-shadow:0 0 30px rgba(0,242,254,0.3); margin-bottom:1.25rem;">
+        <img src="assets/portfolio_qr_scanner.png" alt="3D Portfolio QR Code Scanner" style="width:240px; height:240px; border-radius:12px; display:block;">
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:0.75rem;">
+        <a href="assets/portfolio_qr_scanner.png" download="Nirmalsinh_Chauhan_Portfolio_QR_Scanner.png" class="btn btn-primary" style="justify-content:center;">
+          <i class="ri-download-2-line"></i> Download High-Res QR Scanner Image
+        </a>
+        <button type="button" class="btn btn-outline" style="justify-content:center;" onclick="navigator.clipboard.writeText('https://protfoliyo-kappa.vercel.app'); alert('Live Portfolio URL copied to clipboard!');">
+          <i class="ri-file-copy-line"></i> Copy Live Portfolio URL
+        </button>
+      </div>
     </div>
   </div>
 

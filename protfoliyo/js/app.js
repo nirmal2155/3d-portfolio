@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollSpy();
   initSoundSynth();
   initIntersectionObservers();
+  initQRModal();
 });
 
 /* 1. Typewriter Effect for Hero */
@@ -223,4 +224,29 @@ function initIntersectionObservers() {
   );
 
   progressBars.forEach((bar) => observer.observe(bar));
+}
+
+/* 7. QR Code Scanner Modal Toggle */
+function initQRModal() {
+  const btn = document.getElementById('qr-modal-btn');
+  const modal = document.getElementById('qr-modal');
+  const closeBtn = document.getElementById('close-qr-modal');
+
+  if (btn && modal) {
+    btn.addEventListener('click', () => {
+      modal.classList.add('active');
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  }
 }
